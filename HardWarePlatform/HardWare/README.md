@@ -1,4 +1,6 @@
-# 电路原理图及LAYOUT部分
+# 原理图与PCB
+
+使用AltiumDesigner绘制
 
 本项目的LAYOUT暂时不开源（其实是不确定要不要单独打板）
 

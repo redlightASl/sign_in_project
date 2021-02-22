@@ -1,2 +1,6 @@
 .vscode/
 bin/
+
+*.PcbDoc
+*.PcbLib
+*.PrjPcb
