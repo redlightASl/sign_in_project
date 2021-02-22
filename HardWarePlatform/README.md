@@ -4,7 +4,7 @@
 
 - HardWare：原理图（和PCB layout）
 
-- HardWare：STM32协处理器部分
+- Compute：STM32协处理器部分
   - Core：主程序目录
   - Drivers：STM32 HAL库文件目录
   - MDK-ARM：keilMDK工程目录
