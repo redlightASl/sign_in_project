@@ -3,7 +3,7 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := gpio
+PROJECT_NAME := controller
 
 include $(IDF_PATH)/make/project.mk
 
