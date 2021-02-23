@@ -1180,7 +1180,7 @@ static void FLASH_OB_UserConfig(uint32_t UserType, uint32_t UserConfig)
   uint32_t optr_reg_mask = 0;
 
   /* Check the parameters */
-  assert_param(IS_OB_USER_TYPE(UserType));
+  //assert_param(IS_OB_USER_TYPE(UserType));
 
   if((UserType & OB_USER_IWDG1_SW) != 0U)
   {
