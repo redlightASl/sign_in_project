@@ -1,8 +1,8 @@
 #include "app_camera.h"
 
-static const char *TAG = "app_camera";
+extern const char* TAG;
 
-void CAMARA_init(void)
+void camera_init(void)
 {
     /* IO13, IO14 is designed for JTAG by default,
      * to use it as generalized input,

@@ -5,6 +5,8 @@
 #include "esp_system.h"
 #include "esp_camera.h"
 
+const char* TAG="OV2560";
+
 /**
  * PIXFORMAT_RGB565,    // 2BPP/RGB565
  * PIXFORMAT_YUV422,    // 2BPP/YUV422
@@ -47,8 +49,8 @@
 #define HREF_GPIO_NUM     27
 #define PCLK_GPIO_NUM     25
 
-#define XCLK_FREQ       20000000
+#define XCLK_FREQ 20000000
 
-void app_camera_init(void);
+void camera_init(void);
 
 #endif

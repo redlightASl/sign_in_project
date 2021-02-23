@@ -1,6 +1,9 @@
-#include "app_main.h"
+#include "include/main.h"
+#include "include/spi.h"
+#include "include/camera.h"
+#include "include/wifi.h"
 
-static const char *TAG = "app_main";
+extern const char* TAG;
 
 void app_main(void)
 {
@@ -8,7 +11,6 @@ void app_main(void)
 
     //init system
     ESP_ERROR_CHECK(esp_event_loop_create_default());
-    ESP_ERROR_CHECK(esp_event_loop_init(wifi_event_handler, NULL));
     ESP_LOGI(TAG, "event_loop init success\n");
     //init NVS
     ret = nvs_flash_init();
@@ -19,4 +21,7 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
     ESP_LOGI(TAG, "%s init NVS finished\n", __func__);
+
+
+    
 }
