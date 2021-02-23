@@ -1,7 +1,14 @@
+# VS Code Workplace
 .vscode/
+
+# Eclipse Workplace
+.metadata/
+
+# Build
 bin/
 build/
 
+# PCB
 *.PcbDoc
 *.PcbLib
 *.PrjPcb
