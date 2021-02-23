@@ -1,7 +1,18 @@
 .vscode/
+
+# object
 bin/
 build/
+ComputeOBJ/
 
+# STM32 DSP libs
+DSP/
+
+# ESP-IDF sdkconfigs
+sdkconfig
+sdkconfig.old
+
+# PCB layout
 *.PcbDoc
 *.PcbLib
 *.PrjPcb
