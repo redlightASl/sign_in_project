@@ -14,5 +14,6 @@
 - Control：ESP32控制部分
   - main：主程序目录
     - include：头文件目录
-  - 其他：menuconfig与cmake工具配置文件
+  - 其他：cmake工具配置文件、Makefile
+  - partitions.csv：FLASH分区表
 

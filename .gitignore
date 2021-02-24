@@ -4,11 +4,19 @@
 # Eclipse Workplace
 .metadata/
 
-# Build
+# Object
 bin/
 build/
+ComputeOBJ/
 
-# PCB
+# STM32 DSP libs
+DSP/
+
+# ESP-IDF sdkconfigs
+sdkconfig
+sdkconfig.old
+
+# PCB layout
 *.PcbDoc
 *.PcbLib
 *.PrjPcb

@@ -17,18 +17,18 @@
 
 ## 使用方法
 
-1. 从https://github.com/espressif/esp-idf获取ESP-IDF及开发工具链
+1. 获取[ESP-IDF](https://github.com/espressif/esp-idf)及开发工具链
 
-2. 按说明配置开发环境
+2. 按[乐鑫官网](https://docs.espressif.com/projects/esp-idf/zh_CN/release-v4.1/index.html)快速开始配置开发环境
 
-3. 将本目录下文件放在项目文件夹中
+3. 在本目录下使用`idf.py menuconfig`或使用VSCode打开本目录后配置为ESP-IDF工程，点击下方config进行配置
 
-4. 新建build目录并使用`cmake`工具或`idf.py menuconfig`进行配置
+4. 使用`cmake、make`工具或`idf.py build`编译生成
 
-6. 使用`idf.py build`指令和`esptools`工具进行编译、烧录
+6. 使用`idf.py flash`指令、`esptools`工具、`安信可固件烧录工具`等进行烧录
 
-也可以使用VSCode及ESP32插件进行自动配置、烧录，只要符合ESP32的编译流程即可
+也可以使用其他方式进行配置、烧录，只要符合ESP32的编译流程即可
 
-
+详情参考官网给出的ESP-IDF使用教程
 
 
