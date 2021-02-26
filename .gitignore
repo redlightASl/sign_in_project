@@ -1,6 +1,10 @@
+# VS Code Workplace
 .vscode/
 
-# object
+# Eclipse Workplace
+.metadata/
+
+# Object
 bin/
 build/
 ComputeOBJ/
