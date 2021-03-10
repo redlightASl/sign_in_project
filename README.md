@@ -10,4 +10,22 @@ Based on STM32H7xx high performance MCU and ESP32 WiFi&BLE module,we developed a
 ### Software solution
 The server backend is based on Spring+Mysql and the frontend is based on Vue.js. It is deployed on linux. We also develop an Android APP as the client.
 
-## Lists
+## Schedule and Backlog
+
+`Project Framework` √
+
+`Presentation1` ×
+
+`Presentation2` ×
+
+`Presentation3` ×
+
+`Submit` ×
+
+****
+
+`Server` database and client web page design
+
+`Hardware` SPI communication between ESP32 and STM32
+
+`Recognition` unknown
