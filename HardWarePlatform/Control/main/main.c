@@ -22,6 +22,13 @@ void app_main(void)
     ESP_ERROR_CHECK(ret);
     ESP_LOGI(TAG, "%s init NVS finished\n", __func__);
 
+    //init peripherals
+    ESP_ERROR_CHECK(camera_init());
+    ESP_ERROR_CHECK(SPI_init());
+    ESP_ERROR_CHECK(WIFI_init());
 
-    
+    xTaskCreate();//control Camera
+    xTaskCreate();//SPI communication with STM32
+    xTaskCreate();//upload results to Server
+    xTaskCreate();//listen to Server-Commands
 }
