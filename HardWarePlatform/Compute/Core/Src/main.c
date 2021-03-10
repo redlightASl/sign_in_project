@@ -49,7 +49,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern CURRENT_STATE stm32_state_t;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,7 +60,10 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+extern void TaskSPI(void);
+extern void TaskRecognize(void);
+extern void TaskRoute(void);
+extern void TaskTransmit(void);
 /* USER CODE END 0 */
 
 /**
@@ -112,7 +115,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+		TaskSPI();
+		TaskRoute();
+		TaskRecognize();
+		TaskTransmit();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -187,6 +193,54 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void TaskSPI(void)//SPI通讯
+{
+	extern char spi_information[64];
+	
+	if(stm32_state_t==BUSY)//忙碌状态下缓存指令到FIFO
+	{
+		
+	}
+	else if(stm32_state_t==DONE)//空闲状态下读取指令并执行
+	{
+	
+	}
+	else if(stm32_state_t==UNSTABLE)//不稳定状态下不接收指令并发送报警消息
+	{
+	
+	}
+	else//其他状态无动作
+	{
+	
+	}
+}
+
+void TaskRecognize(void)//处理人脸识别
+{
+	stm32_state_t=BUSY;
+
+	
+	
+	
+	
+	stm32_state_t=DONE;
+}
+
+void TaskRoute(void)//标记当前任务正在运行
+{
+	
+	
+	
+}
+
+void TaskTransmit(void)//传输人脸识别结果
+{
+	stm32_state_t=RESTRANS;
+
+	
+	
+	stm32_state_t=DONE;
+}
 
 /* USER CODE END 4 */
 

@@ -34,6 +34,15 @@ extern "C" {
 extern SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN Private defines */
+//来自ESP32的指令
+typedef enum ESP32COMMAND
+{
+	NOP=1,		//空指令，表示ESP32在线
+	STOP, 		//暂停当前任务
+	RUN, 			//继续执行当前任务
+	SLEEP,		//进入睡眠模式
+}COMMAND;
+
 
 /* USER CODE END Private defines */
 
