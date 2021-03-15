@@ -1,0 +1,5 @@
+### ESP32 Control Module ###
+build/
+Makefile
+sdkconfig
+sdkconfig.old
