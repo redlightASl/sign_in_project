@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: Sign In Server
+  datasource:
+    url: jdbc:mysql://localhost:3306/signin
+    username: root
+    password: root
+
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
