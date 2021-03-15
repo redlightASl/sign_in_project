@@ -1,14 +1,14 @@
-package cn.edu.dlut.mail.wuchen2020.signinserver.web;
+package cn.edu.dlut.mail.wuchen2020.signinserver.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
-public class DemoController {
+@Controller
+public class IndexController {
 	
-	@GetMapping("/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return String.format("Hello %s!", name);
+	@RequestMapping("/")
+	public String index() {
+		return "Welcome to Sign In project!";
 	}
+	
 }
