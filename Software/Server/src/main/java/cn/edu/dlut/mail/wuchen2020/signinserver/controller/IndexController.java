@@ -8,7 +8,7 @@ public class IndexController {
 	
 	@RequestMapping("/")
 	public String index() {
-		return "Welcome to Sign In project!";
+		return "index";
 	}
 	
 }

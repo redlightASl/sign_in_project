@@ -8,7 +8,7 @@ Aiming at college, we tried to
 ### Hardware solution
 Based on STM32H7xx high performance MCU and ESP32 WiFi&BLE module,we developed a set of demo board.
 ### Software solution
-The server backend is based on Spring+Mysql and the frontend is based on Vue.js. It is deployed on linux. We also develop an Android APP as the client.
+The server backend is based on SpringBoot+Hibernate+MySQL and the frontend is based on Vue.js. It is deployed on linux. We also develop an Android APP as the client.
 
 ## Schedule and Backlog
 
