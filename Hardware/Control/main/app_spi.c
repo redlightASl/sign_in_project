@@ -1,6 +1,6 @@
 #include "app_spi.h"
 
-extern const char* SPI_TAG="STM32";
+static const char *SPI_TAG="STM32";
 
 void SPI_init(void)
 {
@@ -18,5 +18,20 @@ void SPI_init(void)
     ret = spi_bus_initialize(EEPROM_HOST, &buscfg, DMA_CHAN);
     ESP_ERROR_CHECK(ret);
 
+    
+}
+
+void SendCommand(Command_enum command);
+{
+
+}
+
+void SendMessage(Message_enum message);
+{
+
+}
+
+void TaskSpiTrans(void* param)
+{
     
 }
