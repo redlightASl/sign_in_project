@@ -17,8 +17,6 @@ void SPI_init(void)
     //init SPI bus
     ret = spi_bus_initialize(EEPROM_HOST, &buscfg, DMA_CHAN);
     ESP_ERROR_CHECK(ret);
-
-    
 }
 
 void SendCommand(Command_enum command);
