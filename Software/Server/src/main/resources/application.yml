@@ -1,13 +1,17 @@
 server:
-  port: 8080
+  port: 80
 
 spring:
   application:
     name: Sign In Server
   datasource:
-    url: jdbc:mysql://localhost:3306/signin
+    url: jdbc:mysql://localhost:3306/signin_db
     username: root
-    password: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
 
 springdoc:
   swagger-ui:
