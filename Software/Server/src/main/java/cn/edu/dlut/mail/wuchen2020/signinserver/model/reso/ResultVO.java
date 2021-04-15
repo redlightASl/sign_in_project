@@ -5,14 +5,6 @@ public class ResultVO {
     private String message;
     private Object data;
 
-    public ResultVO() {}
-
-    public ResultVO(int code, String message, Object data) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
-
     public int getCode() {
         return code;
     }
@@ -35,5 +27,33 @@ public class ResultVO {
 
     public void setData(Object data) {
         this.data = data;
+    }
+    
+    public static ResultVO success() {
+        return new ResultVO();
+    }
+    
+    public static ResultVO success(Object data) {
+        return success(null, data);
+    }
+    
+    public static ResultVO success(String message, Object data) {
+        ResultVO result = new ResultVO();
+        result.setCode(0);
+        result.setMessage(message);
+        result.setData(data);
+        return result;
+    }
+    
+    public static ResultVO fail(int code, String message) {
+        return fail(code, message, null);
+    }
+    
+    public static ResultVO fail(int code, String message, Object data) {
+        ResultVO result = new ResultVO();
+        result.setCode(code);
+        result.setMessage(message);
+        result.setData(data);
+        return result;
     }
 }
