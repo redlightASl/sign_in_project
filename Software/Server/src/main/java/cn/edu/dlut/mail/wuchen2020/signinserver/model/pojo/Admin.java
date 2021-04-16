@@ -22,11 +22,11 @@ public class Admin {
     
     public Admin() {}
 
-    public byte getId() {
+    public Byte getId() {
         return id;
     }
 
-    public void setId(byte id) {
+    public void setId(Byte id) {
         this.id = id;
     }
 

@@ -43,11 +43,11 @@ public class Course {
     
     public Course() {}
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -67,43 +67,43 @@ public class Course {
         this.location = location;
     }
 
-    public byte getStartWeek() {
+    public Byte getStartWeek() {
         return startWeek;
     }
 
-    public void setStartWeek(byte startWeek) {
+    public void setStartWeek(Byte startWeek) {
         this.startWeek = startWeek;
     }
 
-    public byte getEndWeek() {
+    public Byte getEndWeek() {
         return endWeek;
     }
 
-    public void setEndWeek(byte endWeek) {
+    public void setEndWeek(Byte endWeek) {
         this.endWeek = endWeek;
     }
 
-    public byte getWeekday() {
+    public Byte getWeekday() {
         return weekday;
     }
 
-    public void setWeekday(byte weekday) {
+    public void setWeekday(Byte weekday) {
         this.weekday = weekday;
     }
 
-    public byte getStartTime() {
+    public Byte getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(byte startTime) {
+    public void setStartTime(Byte startTime) {
         this.startTime = startTime;
     }
 
-    public byte getEndTime() {
+    public Byte getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(byte endTime) {
+    public void setEndTime(Byte endTime) {
         this.endTime = endTime;
     }
 

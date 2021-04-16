@@ -11,6 +11,10 @@ public class AuthService {
         return true;
     }
     
+    public int status() {
+        return 0;
+    }
+    
     public boolean logout(int userType) {
         
         return true;
