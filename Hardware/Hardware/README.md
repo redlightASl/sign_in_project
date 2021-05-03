@@ -57,6 +57,26 @@
 | HREF_GPIO_NUM  | 23       |
 | PCLK_GPIO_NUM  | 22       |
 
+也可以采用STM32的DCMI接口实现
+
+| 功能       | 对应引脚 |
+| ---------- | -------- |
+| DCMI_HSYNC | PA4      |
+| DCMI_PCLK  | PA6      |
+| DCMI_XCLK  | PA8      |
+| DCMI_SDA   | PB3      |
+| DCMI_SCL   | PB4      |
+| DCMI_VSYNC | PB7      |
+| DCMI_D6    | PB8      |
+| DCMI_D7    | PB9      |
+| DCMI_D0    | PC6      |
+| DCMI_D1    | PC7      |
+| DCMI_D2    | PC8      |
+| DCMI_D3    | PC9      |
+| DCMI_D4    | PC11     |
+| DCMI_D5    | PD3      |
+| DCMI_RESET | PG12     |
+
 
 3. 供电
 
@@ -69,7 +89,7 @@
 
 使用ESP32-DevKitS将ESP32模组烧录完成后焊接到PCB上，不预留烧录接口、不允许二次烧录，考虑使用官方提供的加密API进一步保证安全性
 
-### STM32H750zg
+### STM32H750VBT6
 
 1. SPI：与控制器通信
 
@@ -83,7 +103,7 @@
 
 使用USART0，配置为IAP模式并写入IAP引导程序
 
-| 引脚名 | U0Rx | U0Tx |
+| 引脚名 | U0Tx | U0Rx |
 | ------ | ---- | ---- |
 | 编号   | PA9  | PA10 |
 
@@ -97,3 +117,22 @@
 3. 烧录接口
 
 本项目使用UART对STM32执行OTA烧录，ESP32接收到升级指令后从服务器获取升级软件包，校验后通过串口发送给STM32，STM32不预留烧录口，保证安全性
+
+# PCB大小
+
+挂在1.7m处
+
+长宽高：
+
+长度根据PCB具体情况确定
+
+宽度120mm
+
+厚度20mm
+
+价格：外壳 10￥+esp32-c3 10￥+stm32h750 50￥+PCB打样 50￥+屏幕A（OLED） 10￥+屏幕B（TFT） 30￥=160￥
+
+# 功能
+
+签到提示（签到成功后OLED显示签到成功）或显示屏
+

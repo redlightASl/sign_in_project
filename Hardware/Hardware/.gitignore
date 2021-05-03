@@ -1,0 +1,10 @@
+### PCB layout ###
+__Previews/
+History/
+
+*.SchDoc
+*.PcbDoc
+*.PcbLib
+*.SchLib
+*.PrjPcb
+*.PrjPcbStructure

@@ -8,14 +8,19 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
+#include "driver/spi_common.h"
+#include "driver/spi_master.h"
 #include "esp_system.h"
 #include "esp_event.h"
 #include "esp_log.h"
 #include "sys/param.h"
 
-#define PIN_NUM_MISO 	1
-#define PIN_NUM_MOSI 	2
-#define PIN_NUM_CLK 	3
+#define PIN_NUM_MISO 	32
+#define PIN_NUM_MOSI 	33
+#define PIN_NUM_CLK 	21
+#define STM32_CS_PIN 	-1
+
+#define STM32_CLK_FREQ 40*1000*1000 //40MHz
 
 //commands sent to stm32
 typedef enum MASTER_COMMAND

@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H750xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;   ../Drivers/STM32H7xx_HAL_Driver/Inc;   ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;   ../Drivers/CMSIS/Device/ST/STM32H7xx/Include;   ../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Core/Inc;     ../Drivers/STM32H7xx_HAL_Driver/Inc;     ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;     ../Drivers/CMSIS/Device/ST/STM32H7xx/Include;     ../Drivers/CMSIS/Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -404,24 +404,19 @@
               <FilePath>../Core/Src/gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dcmi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/dcmi.c</FilePath>
+            </File>
+            <File>
               <FileName>hash.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/hash.c</FilePath>
             </File>
             <File>
-              <FileName>iwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Core/Src/iwdg.c</FilePath>
-            </File>
-            <File>
               <FileName>quadspi.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/quadspi.c</FilePath>
-            </File>
-            <File>
-              <FileName>rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Core/Src/rtc.c</FilePath>
             </File>
             <File>
               <FileName>spi.c</FileName>
@@ -454,14 +449,9 @@
               <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32h7xx_hal_hash.c</FileName>
+              <FileName>stm32h7xx_hal_dcmi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_hash_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c</FilePath>
+              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c</FilePath>
             </File>
             <File>
               <FileName>stm32h7xx_hal_rcc.c</FileName>
@@ -539,24 +529,19 @@
               <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c</FilePath>
             </File>
             <File>
-              <FileName>stm32h7xx_hal_iwdg.c</FileName>
+              <FileName>stm32h7xx_hal_hash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c</FilePath>
+              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_hash_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32h7xx_hal_qspi.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32h7xx_hal_rtc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32h7xx_hal_spi.c</FileName>

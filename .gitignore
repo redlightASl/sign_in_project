@@ -3,8 +3,3 @@
 
 ### Eclipse Workplace ###
 .metadata/
-
-### PCB layout ###
-*.PcbDoc
-*.PcbLib
-*.PrjPcb
