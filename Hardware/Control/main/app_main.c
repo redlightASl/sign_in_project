@@ -40,7 +40,7 @@ void app_main(void)
 
     //init peripherals
     ESP_ERROR_CHECK(SPI_init());
-    ESP_ERROR_CHECK(WIFI_init());
+    ESP_ERROR_CHECK(ESP_wifi_init());
 
     xTaskCreate(TaskSpiTrans,"SPI",TASK_STACK_SIZE,"SPI",TASK_PRIORITY,NULL);//SPI communication with STM32
     xTaskCreate(TaskUpload,"upload",TASK_STACK_SIZE,"upload",TASK_PRIORITY,NULL);//upload results to Server
