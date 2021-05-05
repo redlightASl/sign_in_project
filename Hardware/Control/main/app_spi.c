@@ -1,4 +1,15 @@
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+#include "driver/spi_common.h"
+#include "driver/spi_master.h"
+#include "esp_system.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "sys/param.h"
+
 #include "app_spi.h"
+#include "app_main.h"
 
 static const char *SPI_TAG="STM32";
 
@@ -40,6 +51,11 @@ void SPI_init(void)
     ESP_ERROR_CHECK(ret);
 }
 
+Message_enum check_message_type(spi_transaction_t t)
+{
+
+}
+
 void SendCommand(Command_enum command);
 {
     esp_err_t ret;
@@ -76,16 +92,48 @@ void SendMessage(Message_enum message);
     }
 }
 
+/*
+ * if received a SPI message about faceid,put a event to UploadTask
+ * else check the message and eal with it
+ */
 void TaskSpiTrans(void* param)
 {
     esp_err_t ret;
+    Message_enum* MESSAGE; //state-pointer of STM32
+    State_enum* ESP32_STATE; //state-pointer of ESP32
+    Command_enum COMMAND;
+    
     spi_transaction_t t;
     memset(&t,0,sizeof(t));
-    
 
-    ret=spi_device_polling_transmit()
-    if (ret != ESP_OK)
+    while (1)
     {
-        ESP_LOGI(SPI_TAG,"SPI Polling trans task failed");
+        ret=spi_device_polling_transmit() //轮询收取SPI消息
+        if (ret != ESP_OK)
+        {
+            ESP_LOGI(SPI_TAG,"SPI Polling trans task failed");
+        }
+
+        //检查SPI消息类型
+        *MESSAGE = check_message_type(t.rx_data);
+        //如果是人脸识别数据，直接将其挂在消息队列传输给wifi
+        xQueueSend(STM32_State_Queue, (void *)&MESSAGE, (TickType_t)0);
+        //如果是忙碌，延迟后再次收取SPI消息
+        xQueueSend(STM32_State_Queue, (void *)&MESSAGE, (TickType_t)0);
+        //如果是空消息，忽略
+
+
+        //如果收到休眠事件，则发送进入睡眠模式指令到STM32
+
+        //如果收到OTA事件，则发送执行开始执行OTA升级指令
+        xTaskCreate(SubTaskOTA,"OTA",TASK_STACK_SIZE,"OTA",TASK_PRIORITY,NULL);
+        //如果收到强制停止事件，则发送强制停止当前任务指令并将当前状态置为忙碌
+        *ESP32_STATE = BUSY;
     }
+    vTaskDelete();
+}
+
+void SubTaskOTA(void* param)
+{
+
 }

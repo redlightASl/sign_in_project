@@ -2,7 +2,7 @@
 
 使用AltiumDesigner绘制
 
-本项目的LAYOUT暂时不开源（其实是不确定要不要单独打板）
+本项目的LAYOUT与原理图暂时不开源（其实是不确定要不要单独打板）
 
 可使用ESP32和STM32对应的最小系统板制作项目的电路部分
 
@@ -10,7 +10,7 @@
 
 ## 基本需求
 
-1. STM32H750zg开发板/核心板
+1. STM32H750VBT6开发板/核心板
 
 2. ESP32-WROOM-32系列模组或开发板
 
@@ -57,25 +57,25 @@
 | HREF_GPIO_NUM  | 23       |
 | PCLK_GPIO_NUM  | 22       |
 
-也可以采用STM32的DCMI接口实现
+也可以采用STM32H750VBT6的DCMI接口实现
 
-| 功能       | 对应引脚 |
-| ---------- | -------- |
-| DCMI_HSYNC | PA4      |
-| DCMI_PCLK  | PA6      |
-| DCMI_XCLK  | PA8      |
-| DCMI_SDA   | PB3      |
-| DCMI_SCL   | PB4      |
-| DCMI_VSYNC | PB7      |
-| DCMI_D6    | PB8      |
-| DCMI_D7    | PB9      |
-| DCMI_D0    | PC6      |
-| DCMI_D1    | PC7      |
-| DCMI_D2    | PC8      |
-| DCMI_D3    | PC9      |
-| DCMI_D4    | PC11     |
-| DCMI_D5    | PD3      |
-| DCMI_RESET | PG12     |
+| 功能        | 对应引脚 |
+| ----------- | -------- |
+| DCMI_HSYNC  | PA4      |
+| DCMI_PIXCLK | PA6      |
+| DCMI_XCLK   |          |
+| DCMI_SDA    |          |
+| DCMI_SCL    |          |
+| DCMI_VSYNC  | PB7      |
+| DCMI_D6     | PE5      |
+| DCMI_D7     | PE6      |
+| DCMI_D0     | PC6      |
+| DCMI_D1     | PC7      |
+| DCMI_D2     | PC8      |
+| DCMI_D3     | PC9      |
+| DCMI_D4     | PE4      |
+| DCMI_D5     | PD3      |
+| DCMI_RESET  |          |
 
 
 3. 供电
@@ -89,23 +89,27 @@
 
 使用ESP32-DevKitS将ESP32模组烧录完成后焊接到PCB上，不预留烧录接口、不允许二次烧录，考虑使用官方提供的加密API进一步保证安全性
 
+5. 报警指示LED
+
+使用Pin9连接LED阳极，GPIO高电平时触发
+
 ### STM32H750VBT6
 
 1. SPI：与控制器通信
 
-使用SPI1配置为标准SPI从模式
+使用SPI1配置为标准SPI从模式，关闭NSS输入
 
 | 引脚名 | SPI1_SCK | SPI1_MISO | SPI1_MOSI |
 | ------ | -------- | --------- | --------- |
-| 编号   | PA5      | PA6       | PA7       |
+| 编号   | PA5      | PB4       | PA7       |
 
 2. UART：执行OTA升级
 
-使用USART0，配置为IAP模式并写入IAP引导程序
+使用USART1，配置为IAP模式并写入IAP引导程序
 
-| 引脚名 | U0Tx | U0Rx |
-| ------ | ---- | ---- |
-| 编号   | PA9  | PA10 |
+| 引脚名 | US1Tx | US1Rx |
+| ------ | ----- | ----- |
+| 编号   | PB14  | PA10  |
 
 
 2. 供电

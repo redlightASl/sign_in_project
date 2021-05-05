@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    quadspi.h
+  * @file    spi.h
   * @brief   This file contains all the function prototypes for
-  *          the quadspi.c file
+  *          the spi.c file
   ******************************************************************************
   * @attention
   *
@@ -17,8 +17,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __QUADSPI_H__
-#define __QUADSPI_H__
+#ifndef __SPI_H__
+#define __SPI_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,13 +31,13 @@ extern "C" {
 
 /* USER CODE END Includes */
 
-extern QSPI_HandleTypeDef hqspi;
+extern SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
-void MX_QUADSPI_Init(void);
+void MX_SPI1_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
@@ -47,6 +47,6 @@ void MX_QUADSPI_Init(void);
 }
 #endif
 
-#endif /* __QUADSPI_H__ */
+#endif /* __SPI_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

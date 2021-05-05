@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    hash.c
+  * @file    dma.c
   * @brief   This file provides code for the configuration
-  *          of the HASH instances.
+  *          of all the requested memory to memory DMA transfers.
   ******************************************************************************
   * @attention
   *
@@ -18,54 +18,41 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "hash.h"
+#include "dma.h"
 
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
 
-HASH_HandleTypeDef hhash;
-
-/* HASH init function */
-void MX_HASH_Init(void)
-{
-
-  hhash.Init.DataType = HASH_DATATYPE_32B;
-  if (HAL_HASH_Init(&hhash) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-}
-
-void HAL_HASH_MspInit(HASH_HandleTypeDef* hashHandle)
-{
-
-  /* USER CODE BEGIN HASH_MspInit 0 */
-
-  /* USER CODE END HASH_MspInit 0 */
-    /* HASH clock enable */
-    __HAL_RCC_HASH_CLK_ENABLE();
-  /* USER CODE BEGIN HASH_MspInit 1 */
-
-  /* USER CODE END HASH_MspInit 1 */
-}
-
-void HAL_HASH_MspDeInit(HASH_HandleTypeDef* hashHandle)
-{
-
-  /* USER CODE BEGIN HASH_MspDeInit 0 */
-
-  /* USER CODE END HASH_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_HASH_CLK_DISABLE();
-  /* USER CODE BEGIN HASH_MspDeInit 1 */
-
-  /* USER CODE END HASH_MspDeInit 1 */
-}
+/*----------------------------------------------------------------------------*/
+/* Configure DMA                                                              */
+/*----------------------------------------------------------------------------*/
 
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
+
+/**
+  * Enable DMA controller clock
+  */
+void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
+  /* DMA1_Stream1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream1_IRQn);
+
+}
+
+/* USER CODE BEGIN 2 */
+
+/* USER CODE END 2 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
