@@ -8,6 +8,10 @@
 
 # 硬件配置
 
+下面是硬件平台PCB与设备规格的配置描述
+
+本项目既可使用PCB制作符合需求的样品，也可以使用开发板进行验证开发
+
 ## 基本需求
 
 1. STM32H750VBT6开发板/核心板
@@ -20,11 +24,11 @@
 
 1. SPI：与协处理器通信
 
-使用SPI2 **HSPI**配置为标准SPI主模式，**仅使用下面的SPICLK、SPICS0、SPIQ、SPID**，列出所有SPI引脚供参考
+使用SPI0 **HSPI**配置为标准SPI主模式，**仅使用下面的SPICLK、SPICS0、SPIMISO、SPIMOSI**，列出所有SPI引脚供参考
 
-| 引脚名 | SPIHD | SPIWP | SPICS0 | SPICLK | SPIQ | SPID |
-| ------ | ----- | ----- | ------ | ------ | ---- | ---- |
-| 编号   | 28    | 29    | 20     | 21     | 32   | 33   |
+| 引脚名 | SPICS0 | SPI_CLK | SPI_MISO | SPI_MOSI |
+| ------ | ------ | ------- | -------- | -------- |
+| 编号   | 19     | 0       | 2        | 12       |
 
 
 2. UART：执行OTA升级
@@ -36,26 +40,26 @@
 
 2. 摄像头接口
 
-采用ESP-WHO框架`CONFIG_CAMERA_MODEL_WROVER_KIT`下的摄像头接口实现
+采用ESP-WHO框架下的ESP-EYE开发板摄像头接口实现
 
-| 引脚名         | 编号     |
-| -------------- | -------- |
-| PWDN_GPIO_NUM  | 无（-1） |
-| RESET_GPIO_NUM | 无（-1） |
-| XCLK_GPIO_NUM  | 21       |
-| SIOD_GPIO_NUM  | 26       |
-| SIOC_GPIO_NUM  | 27       |
-| Y9_GPIO_NUM    | 35       |
-| Y8_GPIO_NUM    | 34       |
-| Y7_GPIO_NUM    | 39       |
-| Y6_GPIO_NUM    | 36       |
-| Y5_GPIO_NUM    | 19       |
-| Y4_GPIO_NUM    | 18       |
-| Y3_GPIO_NUM    | 5        |
-| Y2_GPIO_NUM    | 4        |
-| VSYNC_GPIO_NUM | 25       |
-| HREF_GPIO_NUM  | 23       |
-| PCLK_GPIO_NUM  | 22       |
+| 引脚名         | 对应摄像头引脚 | 编号            |
+| -------------- | -------------- | --------------- |
+| PWDN_GPIO_NUM  | PWDN           | 无（-1）        |
+| RESET_GPIO_NUM | RESET          | 无（-1）        |
+| XCLK_GPIO_NUM  | XMCLK          | 4               |
+| SIOD_GPIO_NUM  | IIC_SDA        | 18              |
+| SIOC_GPIO_NUM  | IIC_SCL        | 23              |
+| Y9_GPIO_NUM    | Y9             | S_VP(SENSOR_VP) |
+| Y8_GPIO_NUM    | Y8             | 37              |
+| Y7_GPIO_NUM    | Y7             | 38              |
+| Y6_GPIO_NUM    | Y6             | S_VN(SENSOR_VN) |
+| Y5_GPIO_NUM    | Y5             | 35              |
+| Y4_GPIO_NUM    | Y4             | 14              |
+| Y3_GPIO_NUM    | Y3             | 13              |
+| Y2_GPIO_NUM    | Y2             | 34              |
+| VSYNC_GPIO_NUM | VSYNC          | 5               |
+| HREF_GPIO_NUM  | HREF           | 27              |
+| PCLK_GPIO_NUM  | PCLK           | 25              |
 
 也可以采用STM32H750VBT6的DCMI接口实现
 
@@ -80,7 +84,7 @@
 
 3. 供电
 
-![image-20210224011040081](C:\Users\NH55\AppData\Roaming\Typora\typora-user-images\image-20210224011040081.png)
+![image-20210224011040081](F:\Git_repository\sign_in_project\Hardware\Hardware\README.assets\image-20210224011040081.png)
 
 使用独立的5V转3.3V LDO提供3.3V工作电压，并在模组上加装散热片保证工作温度不高于85℃，也可以选用高温版本的ESP32模组
 
@@ -89,9 +93,11 @@
 
 使用ESP32-DevKitS将ESP32模组烧录完成后焊接到PCB上，不预留烧录接口、不允许二次烧录，考虑使用官方提供的加密API进一步保证安全性
 
+* IO0用于SPI，不允许作为烧录BOOT跳线
+
 5. 报警指示LED
 
-使用Pin9连接LED阳极，GPIO高电平时触发
+使用Pin21连接LED阳极，GPIO高电平时触发
 
 ### STM32H750VBT6
 
@@ -122,11 +128,11 @@
 
 本项目使用UART对STM32执行OTA烧录，ESP32接收到升级指令后从服务器获取升级软件包，校验后通过串口发送给STM32，STM32不预留烧录口，保证安全性
 
-# PCB大小
+# PCB及设备规格
 
-挂在1.7m处
+设备应挂在1.7m处
 
-长宽高：
+## 长宽高
 
 长度根据PCB具体情况确定
 
@@ -134,9 +140,11 @@
 
 厚度20mm
 
-价格：外壳 10￥+esp32-c3 10￥+stm32h750 50￥+PCB打样 50￥+屏幕A（OLED） 10￥+屏幕B（TFT） 30￥=160￥
+## 预算
 
-# 功能
+外壳 10￥+esp32-c3 10￥+stm32h750 50￥+PCB打样 50￥+屏幕A（OLED） 10￥+屏幕B（TFT） 30￥=160￥
+
+# 附加功能
 
 签到提示（签到成功后OLED显示签到成功）或显示屏
 
