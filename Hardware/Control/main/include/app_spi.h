@@ -7,10 +7,11 @@
 #ifndef __APP_SPI_H
 #define __APP_SPI_H
 
-#define PIN_NUM_MISO 	32
-#define PIN_NUM_MOSI 	33
-#define PIN_NUM_CLK 	21
-#define STM32_CS_PIN 	-1
+/* SPI0 HSPI for master mode */
+#define PIN_NUM_MISO 	12
+#define PIN_NUM_MOSI 	2
+#define PIN_NUM_CLK 	0
+#define STM32_CS_PIN 	19
 
 #define STM32_CLK_FREQ 40*1000*1000 //40MHz
 

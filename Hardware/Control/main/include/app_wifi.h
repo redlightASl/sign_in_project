@@ -6,19 +6,19 @@
 #define __WIFI_H
 
 /* WiFi Settings */
-#define TARGET_WIFI_SSID "testpoint"
-#define TARGET_WIFI_PASS "abcd1234"
-#define TARGET_WIFI_MAX_RETRY 5
+#define TARGET_WIFI_SSID            "testpoint"
+#define TARGET_WIFI_PASS            "abcd1234"
+#define TARGET_WIFI_MAX_RETRY       5
 #define SET_MAX_STA_CONN            CONFIG_MAX_STA_CONN
 #define SET_IP_ADDR                 CONFIG_SERVER_IP
 #define SET_ESP_WIFI_AP_CHANNEL     CONFIG_ESP_WIFI_AP_CHANNEL
 
 /* HTTP Communication Settings */
-#define SOCKET_RECEIVE_BUFFER_SIZE 256
-#define WEB_SERVER "http://api.dawncraft.cc"
-#define WEB_PORT "80"
-#define WEB_PATH_GET_TIME "/time" 
-#define WEB_PATH_POST_SIGNIN "/signin"
+#define SOCKET_RECEIVE_BUFFER_SIZE  256
+#define WEB_SERVER                  "http://api.dawncraft.cc"
+#define WEB_PORT                    "80"
+#define WEB_PATH_GET_TIME           "/time"
+#define WEB_PATH_POST_SIGNIN        "/signin"
 
 /* Type of Connection Settings */
 #if defined(CONFIG_EXAMPLE_IPV4)

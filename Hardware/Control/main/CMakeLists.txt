@@ -1,6 +1,6 @@
 # ability.1
 # srcs
-#set(COMPONENT_SRCS "app_wifi.c" "app_main.c" "app_spi.c")
+#set(COMPONENT_SRCS "app_camera.c" "app_wifi.c" "app_main.c" "app_spi.c")
 # includes
 # set(COMPONENT_ADD_INCLUDEDIRS "${project_dir}/include")
 # set(COMPONENT_REQUIRES )
