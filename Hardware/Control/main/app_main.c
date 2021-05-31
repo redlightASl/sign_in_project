@@ -65,22 +65,24 @@ void app_main(void)
     gpio_config(&LED_io_conf);
     ESP_LOGI(TAG, "%s init GPIO finished", __func__);
 
+    /* init camera periperals */
+    camera_start();
+
     /* init SPI peripherals */
-    ESP_ERROR_CHECK(SPI_init());
-    /* Create Tasks */
-    xTaskCreate(TaskSpiTrans,"SPI",TASK_STACK_SIZE,"SPI",TASK_PRIORITY,NULL);//SPI communication with STM32
+    //ESP_ERROR_CHECK(SPI_init());
 
     /* init OLED peripherals */
     /* NOT DECIDED */
 
     /* init WiFi peripherals */
-    ESP_ERROR_CHECK(ESP_wifi_init());
-    ESP_LOGI(TAG, "%s init all the peripherals finished", __func__);
+    //ESP_ERROR_CHECK(ESP_wifi_init());
+    //ESP_LOGI(TAG, "%s init all the peripherals finished", __func__);
     /* Create Tasks */
+    xTaskCreate(TaskSpiTrans,"SPI",TASK_STACK_SIZE,"SPI",TASK_PRIORITY,NULL);//SPI communication with STM32
     xTaskCreate(TaskUpload,"upload",TASK_STACK_SIZE,"upload",TASK_PRIORITY,NULL);//upload results to Server
     xTaskCreate(TaskListen,"listen",TASK_STACK_SIZE,"listen",TASK_PRIORITY,NULL);//listen to Server-Commands
     ESP_LOGI(TAG, "%s Tasks were created", __func__);
-    ESP_LOGI("Running!");
+    ESP_LOGI("System Running!");
 
     while (1)
     {

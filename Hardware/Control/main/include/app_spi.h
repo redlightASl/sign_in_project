@@ -15,10 +15,11 @@
 
 #define STM32_CLK_FREQ 40*1000*1000 //40MHz
 
-void SPI_init(void);
-void SendCommand(Command_enum command);
-void SendMessage(Message_enum message);
-void TaskSpiTrans(void* param);
-void SubTaskOTA(void* param);
+#define SENDER_HOST HSPI_HOST
+#define DMA_CHAN 2
+
+
+
+
 
 #endif

@@ -28,6 +28,7 @@ typedef enum messageenum
 {
 	ONLINE    = 	0x01,		// 空消息，表示STM32在线
 	BUSY	  =		0x02,		// 忙碌，表示正在执行运算任务
+	DATA	  = 	0x05,		// 数据，表示有数据被传输
 	ERROR	  =		0x06,		// 出现严重错误，收到这条消息时 ESP32 发出报警指示
 }Message_enum;
 
