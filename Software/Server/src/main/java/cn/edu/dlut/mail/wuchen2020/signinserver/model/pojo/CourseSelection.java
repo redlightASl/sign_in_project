@@ -8,21 +8,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 选课记录
+ * 
+ * @author Wu Chen
+ */
 @Entity
 @Table(name = "student_course")
 public class CourseSelection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "student", referencedColumnName = "id", nullable = false)
     private Student student;
-    
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "course", referencedColumnName = "id", nullable = false)
     private Course course;
-    
+
     public CourseSelection() {}
 
     public Integer getId() {

@@ -7,36 +7,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import cn.edu.dlut.mail.wuchen2020.signinserver.exception.CustomException;
+import cn.edu.dlut.mail.wuchen2020.signinserver.exception.BusinessException;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
 
+/**
+ * 全局异常处理器
+ * 
+ * @author Wu Chen
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    
+
     @ExceptionHandler(Exception.class)
-    ResultVO handleException(Exception e){
-        LOGGER.error(e.getMessage(), e);
-        return ResultVO.fail(-1, e.getMessage());
+    public ResultVO handleException(Exception e) {
+        LOGGER.error("An error has occurred: ", e);
+        return ResultVO.fail(-1, e.getLocalizedMessage());
     }
 
-    @ExceptionHandler(CustomException.class)
-    ResultVO handleBusinessException(CustomException e){
-        return ResultVO.fail(e.getCode(), e.getMessage());
+    @ExceptionHandler(BusinessException.class)
+    public ResultVO handleBusinessException(BusinessException e) {
+        return ResultVO.fail(e.getCode(), e.getLocalizedMessage());
     }
-
+    
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResultVO handleRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        return ResultVO.fail(1, "不支持的请求方法");
+    }
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    ResultVO handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+    public ResultVO handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         Map<String, Object> argumentMap = new LinkedHashMap<>();
         for (ObjectError error : e.getBindingResult().getAllErrors()) {
             String fieldName = ((FieldError) error).getField();
             String message = error.getDefaultMessage();
             argumentMap.put(fieldName, message);
         }
-        return ResultVO.fail(1, "请求参数错误", argumentMap);
+        return ResultVO.fail(2, "请求参数错误", argumentMap);
     }
 }

@@ -9,6 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 课程
+ * 
+ * @author Wu Chen
+ */
 @Entity
 @Table(name = "course")
 public class Course {
@@ -40,7 +45,7 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "teacher", referencedColumnName = "id")
     private Teacher teacher;
-    
+
     public Course() {}
 
     public Integer getId() {

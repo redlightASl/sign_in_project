@@ -6,6 +6,11 @@ import javax.validation.constraints.Size;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+/**
+ * 签到请求数据
+ * 
+ * @author Wu Chen
+ */
 @Schema(description = "签到信息")
 public class SigninVO {
     @NotNull
