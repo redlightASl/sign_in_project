@@ -52,6 +52,14 @@ public final class CourseHelper {
         }
         return new Lesson();
     }
+    
+    public static Lesson getLessonFromOrder(int order) {
+        Pair<LocalTime, LocalTime> pair = CLASSES.get(order);
+        if (pair == null) {
+            return new Lesson();
+        }   
+        return new Lesson(order, pair.getFirst(), pair.getSecond(), false);
+    }
 
     public static class Lesson {
         private int order;

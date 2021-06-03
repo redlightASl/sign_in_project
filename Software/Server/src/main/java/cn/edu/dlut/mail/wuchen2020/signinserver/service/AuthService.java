@@ -38,8 +38,8 @@ public class AuthService {
     public AdminDAO adminDAO;
 
     public Object login(HttpSession httpSession, String username, String password) {
-        UserSession user = null;
         String md5Password = encodeMD5(password);
+        UserSession user = null;
         Student student = studentDAO.findByNumber(username);
         if (student != null) {
             if (student.getPassword().equals(md5Password)) {
@@ -81,6 +81,45 @@ public class AuthService {
     public boolean logout(HttpSession httpSession) {
         httpSession.removeAttribute("user");
         return true;
+    }
+    
+    public boolean changePassword(HttpSession httpSession, String oldPassword, String newPassword) {
+        if (isVaildPassword(oldPassword) && isVaildPassword(newPassword)) {
+            String oldMd5Password = encodeMD5(oldPassword);
+            String newMd5Password = encodeMD5(newPassword);
+            UserSession user = (UserSession) httpSession.getAttribute("user");
+            if (user.getRole() == UserRole.STUDENT) {
+                Student student = studentDAO.findByNumber(user.getUsername());
+                if (!student.getPassword().equals(oldMd5Password)) {
+                    return false;
+                }
+                student.setPassword(newMd5Password);
+                studentDAO.save(student);
+            } else if (user.getRole() == UserRole.TEACHER) {
+                Teacher teacher = teacherDAO.findByNumber(user.getUsername());
+                if (!teacher.getPassword().equals(oldMd5Password)) {
+                    return false;
+                }
+                teacher.setPassword(newMd5Password);
+                teacherDAO.save(teacher);
+            } else if (user.getRole() == UserRole.ADMIN) {
+                Admin admin = adminDAO.findByUsername(user.getUsername());
+                if (!admin.getPassword().equals(oldMd5Password)) {
+                    return false;
+                }
+                admin.setPassword(newMd5Password);
+                adminDAO.save(admin);
+            } else {
+                return false;
+            }
+            logout(httpSession);
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean isVaildPassword(String password) {
+        return password != null && password.length() >= 6;
     }
 
     public static String encodeMD5(String password) {

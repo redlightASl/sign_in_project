@@ -53,4 +53,10 @@ public class AuthController {
     public boolean logout(HttpSession httpSession) {
         return service.logout(httpSession);
     }
+    
+    @PostMapping("/changePassword")
+    @Operation(description = "修改密码")
+    public boolean changePassword(HttpSession httpSession, String oldPassword, String newPassword) {
+        return service.changePassword(httpSession, oldPassword, newPassword);
+    }
 }

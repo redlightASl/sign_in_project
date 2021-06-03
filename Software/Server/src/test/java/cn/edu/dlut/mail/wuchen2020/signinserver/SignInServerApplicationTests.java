@@ -10,7 +10,7 @@ class SignInServerApplicationTests {
 
     @Test
     void contextLoads() {}
-    
+
     @Test
     void encodePasswordTest() {
         String md5Password = AuthService.encodeMD5("123456");

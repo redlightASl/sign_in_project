@@ -71,16 +71,18 @@ public class SigninService {
         record.setTime(new Date(now));
         
         // 查询签到记录并确定签到类型
-        Date startDate = Date.from(lesson.getStartTime().atDate(date).atZone(ZoneId.systemDefault()).toInstant());
+        CourseHelper.Lesson startLesson = CourseHelper.getLessonFromOrder(course.getStartTime());
+        CourseHelper.Lesson endLesson = CourseHelper.getLessonFromOrder(course.getEndTime());
+        Date startDate = Date.from(startLesson.getStartTime().atDate(date).atZone(ZoneId.systemDefault()).toInstant());
         List<SigninRecord> records = signinRecordDAO.findByStudentAndTimeBetween(student, startDate, new Date());
         if (records == null || records.isEmpty()) {
-            if (lesson.isBreaking()) {
+            if (lesson.getOrder() == endLesson.getOrder() && lesson.isBreaking()) {
                 return SigninStatus.NO_CLASS;
             }
             record.setStatus(SigninStatus.SUCCESS);
         } else {
             SigninRecord lastRecord = records.get(records.size() - 1);
-            if (lesson.isBreaking()) {
+            if (lesson.getOrder() == endLesson.getOrder() && lesson.isBreaking()) {
                 if (lastRecord.getStatus() == SigninStatus.LEAVE) {
                     return SigninStatus.NO_CLASS;
                 }

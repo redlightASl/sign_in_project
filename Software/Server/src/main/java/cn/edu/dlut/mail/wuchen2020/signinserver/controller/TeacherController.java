@@ -36,4 +36,22 @@ public class TeacherController {
         return ResultVO.fail(1002, "没有权限");
     }
     
+    @GetMapping("/getTerm")
+    public Object getTerm(HttpSession httpSession) {
+        UserSession user = (UserSession) httpSession.getAttribute("user");
+        if (user.getRole() == UserRole.TEACHER) {
+            return teacherService.getTerm(user.getUsername());
+        }
+        return ResultVO.fail(1002, "没有权限");
+    }
+    
+    @GetMapping("/getTimetable")
+    public Object getTimetable(HttpSession httpSession, int week) {
+        UserSession user = (UserSession) httpSession.getAttribute("user");
+        if (user.getRole() == UserRole.TEACHER) {
+            return teacherService.getTimetable(user.getUsername(), week);
+        }
+        return ResultVO.fail(1002, "没有权限");
+    }
+    
 }

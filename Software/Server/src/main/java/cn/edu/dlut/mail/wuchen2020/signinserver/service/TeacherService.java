@@ -31,6 +31,14 @@ public class TeacherService {
         return null;
     }
     
+    public Object getTerm(String username) {
+        return null;
+    }
+    
+    public Object getTimetable(String username, int week) {
+        return null;
+    }
+    
     // TODO 教师查看班级签到情况
 
 }

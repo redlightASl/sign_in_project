@@ -15,7 +15,10 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.dao.StudentDAO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.SigninRecord.SigninStatus;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.SigninRecord;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.Student;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.LessonVO;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.SigninRecordVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.StudentInfoVO;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.TermVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.util.CourseHelper;
 
 /**
@@ -45,6 +48,16 @@ public class StudentService {
         }
         return null;
     }
+    
+    public TermVO getTerm(String username) {
+        // TODO 获取学期信息
+        return null;
+    }
+    
+    public List<LessonVO> getTimetable(String username, int week) {
+        // TODO 获取课程表
+        return null;
+    }
 
     public SigninStatus getSigninStatus(String number) {
         Student student = studentDAO.findByNumber(number);
@@ -65,4 +78,8 @@ public class StudentService {
         return SigninStatus.ERROR;
     }
 
+    public List<SigninRecordVO> getSigninHistory(String username, int page, int count) {
+        // TODO 获取签到历史记录
+        return null;
+    }
 }

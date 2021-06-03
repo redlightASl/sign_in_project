@@ -36,6 +36,24 @@ public class StudentController {
         return ResultVO.fail(1002, "没有权限");
     }
     
+    @GetMapping("/getTerm")
+    public Object getTerm(HttpSession httpSession) {
+        UserSession user = (UserSession) httpSession.getAttribute("user");
+        if (user.getRole() == UserRole.STUDENT) {
+            return studentService.getTerm(user.getUsername());
+        }
+        return ResultVO.fail(1002, "没有权限");
+    }
+    
+    @GetMapping("/getTimetable")
+    public Object getTimetable(HttpSession httpSession, int week) {
+        UserSession user = (UserSession) httpSession.getAttribute("user");
+        if (user.getRole() == UserRole.STUDENT) {
+            return studentService.getTimetable(user.getUsername(), week);
+        }
+        return ResultVO.fail(1002, "没有权限");
+    }
+    
     @GetMapping("/getSigninStatus")
     public Object getSigninStatus(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
@@ -49,8 +67,7 @@ public class StudentController {
     public Object getSigninHistory(HttpSession httpSession, int page, int count) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
-            // TODO 学生签到历史记录
-            return null;
+            return studentService.getSigninHistory(user.getUsername(), page, count);
         }
         return ResultVO.fail(1002, "没有权限");
     }

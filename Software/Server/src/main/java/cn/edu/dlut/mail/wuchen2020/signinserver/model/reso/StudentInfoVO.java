@@ -1,15 +1,23 @@
 package cn.edu.dlut.mail.wuchen2020.signinserver.model.reso;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * 学生信息
  * 
  * @author Wu Chen
  */
+@Schema(description = "学生信息")
 public class StudentInfoVO {
+    @Schema(description = "学生学号", example = "20202241024")
     private String number;
+    @Schema(description = "学生姓名", example = "张三")
     private String name;
+    @Schema(description = "班级", example = "软2001")
     private String className;
+    @Schema(description = "专业", example = "软件工程")
     private String major;
+    @Schema(description = "学院", example = "软件学院")
     private String department;
 
     public StudentInfoVO() {}
