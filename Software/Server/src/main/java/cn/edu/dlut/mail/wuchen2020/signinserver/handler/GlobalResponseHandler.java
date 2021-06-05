@@ -10,6 +10,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
 
+/**
+ * 全局响应处理器
+ * 
+ * @author Wu Chen
+ */
 @RestControllerAdvice("cn.edu.dlut.mail.wuchen2020.signinserver.controller")
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     @Override
@@ -24,7 +29,9 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
         if (body == null) {
             return ResultVO.success();
         }
-        if (body instanceof ResultVO) return body;
+        if (body instanceof ResultVO) {
+            return body;
+        }
         return ResultVO.success(body);
     }
 }

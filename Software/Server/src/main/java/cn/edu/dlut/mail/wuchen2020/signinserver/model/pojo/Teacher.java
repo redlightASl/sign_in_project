@@ -7,28 +7,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 教师
+ * 
+ * @author Wu Chen
+ */
 @Entity
 @Table(name = "teacher")
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(name = "number", columnDefinition = "CHAR", nullable = false)
     private String number;
-    
+
     @Column(name = "password", columnDefinition = "CHAR", nullable = false)
     private String password;
-    
+
     @Column(name = "fingerprint", columnDefinition = "CHAR", nullable = false)
     private String fingerprint;
-    
+
     @Column(name = "name", nullable = false)
     private String name;
-    
+
     @Column(name = "class", nullable = true)
     private String className;
-    
+
     public Teacher() {}
 
     public Integer getId() {

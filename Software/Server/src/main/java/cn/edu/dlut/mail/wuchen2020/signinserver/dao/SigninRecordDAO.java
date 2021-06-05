@@ -9,5 +9,8 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.SigninRecord;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.Student;
 
 public interface SigninRecordDAO extends JpaRepository<SigninRecord, Long> {
+    // TODO 加入分页
+    List<SigninRecord> findByStudent(Student student);
+    
     List<SigninRecord> findByStudentAndTimeBetween(Student student, Date max, Date min);
 }

@@ -4,8 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * index
- * @author WC
+ * 主页和页面模板映射
+ * 
+ * @author Wu Chen
  */
 @Controller
 public class IndexController {

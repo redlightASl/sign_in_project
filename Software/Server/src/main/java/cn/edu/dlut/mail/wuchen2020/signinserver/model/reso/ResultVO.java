@@ -1,5 +1,10 @@
 package cn.edu.dlut.mail.wuchen2020.signinserver.model.reso;
 
+/**
+ * 统一返回值格式
+ * 
+ * @author Wu Chen
+ */
 public class ResultVO {
     private int code;
     private String message;
@@ -31,6 +36,10 @@ public class ResultVO {
     
     public static ResultVO success() {
         return new ResultVO();
+    }
+    
+    public static ResultVO success(String message) {
+        return success(message, null);
     }
     
     public static ResultVO success(Object data) {
