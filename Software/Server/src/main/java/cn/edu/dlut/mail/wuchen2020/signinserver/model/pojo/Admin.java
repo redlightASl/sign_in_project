@@ -7,19 +7,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 管理员
+ * 
+ * @author Wu Chen
+ */
 @Entity
 @Table(name = "admin")
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Byte id;
-    
+
     @Column(name = "username", nullable = false)
     private String username;
-    
+
     @Column(name = "password", columnDefinition = "CHAR", nullable = false)
     private String password;
-    
+
     public Admin() {}
 
     public Byte getId() {

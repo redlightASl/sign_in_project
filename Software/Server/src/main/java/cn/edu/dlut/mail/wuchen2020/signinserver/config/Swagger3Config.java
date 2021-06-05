@@ -8,6 +8,11 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 
+/**
+ * Swagger 3 配置
+ * 
+ * @author Wu Chen
+ */
 @Configuration
 public class Swagger3Config {
     @Bean

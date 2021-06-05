@@ -11,42 +11,49 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 签到记录
+ * 
+ * @author Wu Chen
+ */
 @Entity
 @Table(name = "signin_log")
 public class SigninRecord {
     /**
      * 签到状态
-     * @author Wu Chen
      */
     public enum SigninStatus {
-        SUCCESS,     // 正常签到
+        SUCCESS,     // 签到成功
+        NOT_SIGN_IN, // 未签到
+        NO_CLASS,    // 无课
         WRONG_CLASS, // 走错教室
-        LEAVE_TEMP,  // 暂离
+        TEMP_LEAVE,  // 暂离
         COME_BACK,   // 返回
-        LEAVE        // 离开
+        LEAVE,       // 离开
+        ERROR        // 错误
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "student", referencedColumnName = "id", nullable = false)
     private Student student;
-    
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "course", referencedColumnName = "id", nullable = false)
     private Course course;
-    
+
     @Column(name = "location", nullable = false)
     private String location;
-    
+
     @Column(name = "time", nullable = false)
     private Date time;
-    
+
     @Column(name = "status", columnDefinition = "BIT", nullable = false)
     private SigninStatus status;
-    
+
     public SigninRecord() {}
 
     public Long getId() {

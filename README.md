@@ -28,8 +28,9 @@ The server backend is based on **SpringBoot**+**Hibernate**+**MySQL** and the fr
 
 # install requirements
     Android Studio==4.1.3
-    JDK==24.4.1
+    Android SDK==24.4.1
     Python==3.7.0
+    JDK>=1.8
 
 `Server` database and client web page design
 
