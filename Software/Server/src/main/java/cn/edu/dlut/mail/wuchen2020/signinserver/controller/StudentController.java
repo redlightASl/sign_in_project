@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession;
@@ -33,42 +34,36 @@ public class StudentController {
         if (user.getRole() == UserRole.STUDENT) {
             return studentService.getStudentInfo(user.getUsername());
         }
-        return ResultVO.fail(1002, "没有权限");
-    }
-    
-    @GetMapping("/getTerm")
-    public Object getTerm(HttpSession httpSession) {
-        UserSession user = (UserSession) httpSession.getAttribute("user");
-        if (user.getRole() == UserRole.STUDENT) {
-            return studentService.getTerm(user.getUsername());
-        }
-        return ResultVO.fail(1002, "没有权限");
+        return ResultVO.fail(1003, "没有权限");
     }
     
     @GetMapping("/getTimetable")
-    public Object getTimetable(HttpSession httpSession, int week) {
+    public Object getTimetable(HttpSession httpSession,
+            @RequestParam(name = "week", required = false, defaultValue = "0") int week) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
             return studentService.getTimetable(user.getUsername(), week);
         }
-        return ResultVO.fail(1002, "没有权限");
+        return ResultVO.fail(1003, "没有权限");
     }
     
     @GetMapping("/getSigninStatus")
     public Object getSigninStatus(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
-            return studentService.getSigninStatus(user.getUsername()).ordinal();
+            return studentService.getSigninStatus(user.getUsername());
         }
-        return ResultVO.fail(1002, "没有权限");
+        return ResultVO.fail(1003, "没有权限");
     }
     
     @GetMapping("/getSigninHistory")
-    public Object getSigninHistory(HttpSession httpSession, int page, int count) {
+    public Object getSigninHistory(HttpSession httpSession,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "count", required = false, defaultValue = "20") int count) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
             return studentService.getSigninHistory(user.getUsername(), page, count);
         }
-        return ResultVO.fail(1002, "没有权限");
+        return ResultVO.fail(1003, "没有权限");
     }
 }

@@ -34,7 +34,7 @@ public class Course {
     private Byte endWeek;
 
     @Column(name = "weekday", nullable = false)
-    private Byte weekday;
+    private Byte dayOfWeek;
 
     @Column(name = "start_time", nullable = false)
     private Byte startTime;
@@ -88,12 +88,12 @@ public class Course {
         this.endWeek = endWeek;
     }
 
-    public Byte getWeekday() {
-        return weekday;
+    public Byte getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setWeekday(Byte weekday) {
-        this.weekday = weekday;
+    public void setDayOfWeek(Byte dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public Byte getStartTime() {

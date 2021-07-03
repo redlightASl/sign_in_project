@@ -42,16 +42,16 @@ public class AuthController {
         return ResultVO.fail(1002, "您已登录");
     }
 
-    @GetMapping("/userinfo")
-    @Operation(description = "查询用户信息")
-    public int getUserInfo(HttpSession httpSession) {
-        return service.getUserInfo(httpSession);
-    }
-
     @GetMapping("/logout")
     @Operation(description = "注销")
     public boolean logout(HttpSession httpSession) {
         return service.logout(httpSession);
+    }
+    
+    @GetMapping("/usertype")
+    @Operation(description = "查询用户种类")
+    public int getUserType(HttpSession httpSession) {
+        return service.getUserType(httpSession);
     }
     
     @PostMapping("/changePassword")

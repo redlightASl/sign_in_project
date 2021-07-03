@@ -25,7 +25,7 @@ public class SigninRecord {
     public enum SigninStatus {
         SUCCESS,     // 签到成功
         NOT_SIGN_IN, // 未签到
-        NO_CLASS,    // 无课
+        NO_LESSON,   // 无课
         WRONG_CLASS, // 走错教室
         TEMP_LEAVE,  // 暂离
         COME_BACK,   // 返回

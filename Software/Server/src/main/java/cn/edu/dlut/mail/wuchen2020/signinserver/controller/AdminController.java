@@ -33,6 +33,6 @@ public class AdminController {
         if (user.getRole() == UserRole.ADMIN) {
             return adminService.getAdminInfo(user.getUsername());
         }
-        return ResultVO.fail(1002, "没有权限");
+        return ResultVO.fail(1003, "没有权限");
     }
 }
