@@ -20,4 +20,8 @@ public class SigninApplication extends Application {
     public static SharedPreferences getSharedPreferences() {
         return sharedPreferences;
     }
+
+    public static void clearCookies() {
+        getSharedPreferences().edit().remove("cookies").apply();
+    }
 }

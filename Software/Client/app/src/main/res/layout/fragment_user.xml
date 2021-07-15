@@ -9,4 +9,11 @@
     android:orientation="vertical"
     tools:context=".ui.UserFragment">
 
+    <TextView
+        android:id="@+id/text_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="24sp"
+        tools:text="用户信息" />
 </LinearLayout>

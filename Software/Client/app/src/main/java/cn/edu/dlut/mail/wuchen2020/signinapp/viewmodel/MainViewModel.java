@@ -34,9 +34,9 @@ public class MainViewModel extends ViewModel {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Result<Double> result = Result.fromJson(response.body().string());
-                Double type = result.getData();
-                userType.postValue(type != null ? type.intValue() : -1);
+                Result<Integer> result = Result.fromJson(response.body().string(), Integer.class);
+                Integer type = result.getData();
+                userType.postValue(type != null ? type : -1);
             }
         });
     }

@@ -57,12 +57,12 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Result<Double> result = Result.fromJson(response.body().string());
+                Result<Integer> result = Result.fromJson(response.body().string(), Integer.class);
                 if (result.getCode() == 1001) {
                     loginResult.postValue(3);
                 } else if (result.getCode() == 1002) {
                     loginResult.postValue(5);
-                } else if (result.getData().intValue() == 2) {
+                } else if (result.getData() == 2) {
                     loginResult.postValue(6);
                 } else {
                     loginResult.postValue(0);

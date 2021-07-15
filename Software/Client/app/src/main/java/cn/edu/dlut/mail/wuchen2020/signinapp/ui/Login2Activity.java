@@ -38,23 +38,24 @@ public class Login2Activity extends AppCompatActivity {
                 return;
             } else if (loginResult == 3) {
                 showMessage("账号或密码错误");
+                SigninApplication.clearCookies();
                 return;
             } else if (loginResult == 4) {
                 showMessage("尝试次数过多, 请稍后再试");
+                SigninApplication.clearCookies();
                 return;
             } else if (loginResult == 5) {
                 showMessage("您已登录");
             } else if (loginResult == 6) {
                 showMessage("客户端目前尚不支持管理员使用");
-                SigninApplication.getSharedPreferences().edit().remove("cookies").apply();
+                SigninApplication.clearCookies();
                 return;
             } else if (loginResult != 0) {
                 showMessage("登录失败, 请检查网络连接");
+                SigninApplication.clearCookies();
                 return;
             }
-            Intent intent = new Intent(Login2Activity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            startMainActivity();
         });
         viewBinding.buttonLogin.setOnClickListener(v -> {
             progressDialog = ProgressDialog.show(this, "", "正在登录中...", true);
@@ -67,5 +68,12 @@ public class Login2Activity extends AppCompatActivity {
     private void showMessage(String message) {
         Snackbar.make(viewBinding.getRoot(), message, Snackbar.LENGTH_LONG)
                 .show();
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }
