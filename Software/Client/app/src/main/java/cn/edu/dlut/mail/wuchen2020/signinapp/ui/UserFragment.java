@@ -1,5 +1,6 @@
 package cn.edu.dlut.mail.wuchen2020.signinapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import cn.edu.dlut.mail.wuchen2020.signinapp.SigninApplication;
 import cn.edu.dlut.mail.wuchen2020.signinapp.databinding.FragmentUserBinding;
 import cn.edu.dlut.mail.wuchen2020.signinapp.viewmodel.MainViewModel;
 import cn.edu.dlut.mail.wuchen2020.signinapp.viewmodel.UserViewModel;
@@ -21,6 +23,10 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewBinding = FragmentUserBinding.inflate(inflater, container, false);
+        viewBinding.buttonLogout.setOnClickListener(view -> {
+            viewModel.logout();
+            startLoginActivity();
+        });
         return viewBinding.getRoot();
     }
 
@@ -55,5 +61,11 @@ public class UserFragment extends Fragment {
             viewBinding.textUser.setText(str);
         });
         // TODO 画个好看点的UI
+    }
+
+    private void startLoginActivity() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
     }
 }

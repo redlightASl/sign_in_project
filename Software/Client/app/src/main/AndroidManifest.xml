@@ -32,7 +32,8 @@
         <activity
             android:name=".ui.Login2Activity"
             android:label="账号密码登录"
-            android:parentActivityName=".ui.LoginActivity">
+            android:parentActivityName=".ui.LoginActivity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
 
     </application>

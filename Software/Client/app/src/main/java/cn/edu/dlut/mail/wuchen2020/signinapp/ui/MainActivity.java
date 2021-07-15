@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (userType == -1) {
                 AndroidUtil.toast(this, "登录过期, 请重新登录");
+                SigninApplication.clearCookies();
                 startLoginActivity();
             }
         });

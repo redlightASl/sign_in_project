@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.io.IOException;
 
+import cn.edu.dlut.mail.wuchen2020.signinapp.SigninApplication;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Result;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Student;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Teacher;
@@ -66,9 +67,13 @@ public class UserViewModel extends ViewModel {
                 .build();
         HttpUtil.getClient().newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {}
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                SigninApplication.clearCookies();
+            }
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) {}
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                SigninApplication.clearCookies();
+            }
         });
     }
 }

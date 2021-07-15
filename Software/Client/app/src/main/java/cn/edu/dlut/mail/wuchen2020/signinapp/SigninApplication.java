@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 
 import cn.edu.dlut.mail.wuchen2020.signinapp.util.HttpUtil;
 
-
 public class SigninApplication extends Application {
     private static SharedPreferences sharedPreferences;
 
