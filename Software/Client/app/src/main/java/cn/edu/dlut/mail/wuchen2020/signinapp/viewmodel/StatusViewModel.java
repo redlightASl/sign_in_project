@@ -4,5 +4,11 @@ import androidx.lifecycle.ViewModel;
 
 public class StatusViewModel extends ViewModel {
 
+    public void updateStudentSigninStatus() {
 
+    }
+
+    public void updateTeacherSigninStatus() {
+
+    }
 }

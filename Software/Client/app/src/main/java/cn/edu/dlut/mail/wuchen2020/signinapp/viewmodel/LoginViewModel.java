@@ -46,7 +46,7 @@ public class LoginViewModel extends ViewModel {
         json.addProperty("password", password);
         RequestBody body = RequestBody.create(json.toString(), HttpUtil.JSON);
         Request request = new Request.Builder()
-                .url("http://" + HttpUtil.SIGNIN_API + "/api/login")
+                .url("https://" + HttpUtil.SIGNIN_API + "/api/login")
                 .post(body)
                 .build();
         HttpUtil.getClient().newCall(request).enqueue(new Callback() {

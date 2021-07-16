@@ -23,7 +23,7 @@ public class MainViewModel extends ViewModel {
 
     public void updateUserType() {
         Request request = new Request.Builder()
-                .url("http://" + HttpUtil.SIGNIN_API + "/api/usertype")
+                .url("https://" + HttpUtil.SIGNIN_API + "/api/usertype")
                 .get()
                 .build();
         HttpUtil.getClient().newCall(request).enqueue(new Callback() {

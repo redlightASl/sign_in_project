@@ -34,9 +34,9 @@ public class StatusFragment extends Fragment {
                 return;
             }
             if (userType == 0) { // 学生
-
+                viewModel.updateStudentSigninStatus();
             } else if (userType == 1) { // 教师
-
+                viewModel.updateTeacherSigninStatus();
             }
         });
     }

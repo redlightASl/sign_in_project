@@ -30,7 +30,7 @@ public class UserViewModel extends ViewModel {
 
     public void updateStudentInfo() {
         Request request = new Request.Builder()
-                .url("http://" + HttpUtil.SIGNIN_API + "/api/student/getStudentInfo")
+                .url("https://" + HttpUtil.SIGNIN_API + "/api/student/getStudentInfo")
                 .get()
                 .build();
         HttpUtil.getClient().newCall(request).enqueue(new Callback() {
@@ -46,7 +46,7 @@ public class UserViewModel extends ViewModel {
 
     public void updateTeacherInfo() {
         Request request = new Request.Builder()
-                .url("http://" + HttpUtil.SIGNIN_API + "/api/teacher/getTeacherInfo")
+                .url("https://" + HttpUtil.SIGNIN_API + "/api/teacher/getTeacherInfo")
                 .get()
                 .build();
         HttpUtil.getClient().newCall(request).enqueue(new Callback() {
@@ -62,7 +62,7 @@ public class UserViewModel extends ViewModel {
 
     public void logout() {
         Request request = new Request.Builder()
-                .url("http://" + HttpUtil.SIGNIN_API + "/api/logout")
+                .url("https://" + HttpUtil.SIGNIN_API + "/api/logout")
                 .get()
                 .build();
         HttpUtil.getClient().newCall(request).enqueue(new Callback() {
