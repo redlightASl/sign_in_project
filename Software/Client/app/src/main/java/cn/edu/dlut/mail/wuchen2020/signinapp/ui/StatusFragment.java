@@ -52,6 +52,7 @@ public class StatusFragment extends Fragment {
                 case 1: color = android.R.color.holo_red_dark; icon = R.drawable.ic_check_box_blank_24; str = "尚未签到"; break;
                 case 2: color = android.R.color.holo_green_dark; icon = R.drawable.ic_check_box_checked_24; str = "当前无课"; break;
                 case 4: color = android.R.color.holo_orange_dark; icon = R.drawable.ic_check_box_checked_24; str = "暂离中"; break;
+                case 5: color = android.R.color.holo_green_dark; icon = R.drawable.ic_check_box_checked_24; str = "您已返回"; break;
                 case 6: color = android.R.color.holo_green_dark; icon = R.drawable.ic_check_box_checked_24; str = "您已签退"; break;
                 default: color = android.R.color.holo_orange_dark; icon = R.drawable.ic_check_box_blank_24; str = "发生未知错误"; break;
             }

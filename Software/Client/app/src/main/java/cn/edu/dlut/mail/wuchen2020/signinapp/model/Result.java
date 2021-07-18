@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 import cn.edu.dlut.mail.wuchen2020.signinapp.util.GsonUtil;
 
@@ -41,6 +42,13 @@ public class Result<T> {
         // 错误的写法, 详见: https://www.jianshu.com/p/d62c2be60617
         // Type type = new TypeToken<Result<T>>(){}.getType();
         Type type = GsonUtil.createParameterizedType(Result.class, clazz);
+        return gson.fromJson(json, type);
+    }
+
+    public static <T> Result<List<T>> fromJsonArray(String json, Class<T> clazz) {
+        Gson gson = GsonUtil.gson();
+        Type listType = GsonUtil.createParameterizedType(List.class, clazz);
+        Type type = GsonUtil.createParameterizedType(Result.class, listType);
         return gson.fromJson(json, type);
     }
 }

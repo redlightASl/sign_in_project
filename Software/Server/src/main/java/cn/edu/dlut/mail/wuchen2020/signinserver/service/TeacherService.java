@@ -69,7 +69,8 @@ public class TeacherService {
                     lesson.setID(course.getId());
                     lesson.setName(course.getName());
                     lesson.setLocation(course.getLocation());
-                    lesson.setTeacherName(course.getTeacher().getName());
+                    if (course.getTeacher() != null)
+                        lesson.setTeacherName(course.getTeacher().getName());
                     lesson.setDayOfWeek(course.getDayOfWeek());
                     lesson.setStartTime(course.getStartTime());
                     lesson.setEndTime(course.getEndTime());
@@ -111,7 +112,8 @@ public class TeacherService {
                 lesson.setID(course.getId());
                 lesson.setName(course.getName());
                 lesson.setLocation(course.getLocation());
-                lesson.setTeacherName(course.getTeacher().getName());
+                if (course.getTeacher() != null)
+                    lesson.setTeacherName(course.getTeacher().getName());
                 lesson.setDayOfWeek(course.getDayOfWeek());
                 lesson.setStartTime(course.getStartTime());
                 lesson.setEndTime(course.getEndTime());
