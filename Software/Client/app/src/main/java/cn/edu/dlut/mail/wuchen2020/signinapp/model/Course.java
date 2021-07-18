@@ -1,6 +1,6 @@
 package cn.edu.dlut.mail.wuchen2020.signinapp.model;
 
-public class Lesson {
+public class Course {
     private Integer id;
     private String name;
     private String location;

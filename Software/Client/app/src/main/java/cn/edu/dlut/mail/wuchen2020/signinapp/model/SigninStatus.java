@@ -1,15 +1,15 @@
 package cn.edu.dlut.mail.wuchen2020.signinapp.model;
 
 public class SigninStatus {
-    private Lesson lesson;
+    private Course course;
     private Integer status;
 
-    public Lesson getLesson() {
-        return lesson;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Integer getStatus() {

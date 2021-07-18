@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:backgroundTint="@android:color/holo_green_dark"
+            app:cardBackgroundColor="@android:color/holo_green_dark"
             app:cardCornerRadius="8dp"
             app:contentPadding="12dp">
 
@@ -37,7 +37,7 @@
                     android:layout_gravity="center_vertical"
                     android:contentDescription="签到状态图标"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_check_box_24"
+                    android:src="@drawable/ic_check_box_checked_24"
                     app:tint="@color/white" />
 
                 <LinearLayout
