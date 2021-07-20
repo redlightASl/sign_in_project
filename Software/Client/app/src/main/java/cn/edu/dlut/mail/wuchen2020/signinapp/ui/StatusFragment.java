@@ -24,6 +24,12 @@ public class StatusFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewBinding = FragmentStatusBinding.inflate(inflater, container, false);
+        viewBinding.getRoot().setOnRefreshListener(() -> {
+            Integer userType = mainViewModel.getUserType().getValue();
+            if (userType != null) {
+                updateSigninStatus(userType);
+            }
+        });
         return viewBinding.getRoot();
     }
 
@@ -37,11 +43,7 @@ public class StatusFragment extends Fragment {
             if (userType == null) {
                 return;
             }
-            if (userType == 0) { // 学生
-                viewModel.updateStudentSigninStatus();
-            } else if (userType == 1) { // 教师
-                viewModel.updateTeacherSigninStatus();
-            }
+            updateSigninStatus(userType);
         });
         viewModel.getStatus().observe(getViewLifecycleOwner(), signinStatus -> {
             int color;
@@ -65,6 +67,15 @@ public class StatusFragment extends Fragment {
             } else {
                 viewBinding.textLesson.setText("");
             }
+            viewBinding.getRoot().setRefreshing(false);
         });
+    }
+
+    private void updateSigninStatus(int userType) {
+        if (userType == 0) { // 学生
+            viewModel.updateStudentSigninStatus();
+        } else if (userType == 1) { // 教师
+            viewModel.updateTeacherSigninStatus();
+        }
     }
 }

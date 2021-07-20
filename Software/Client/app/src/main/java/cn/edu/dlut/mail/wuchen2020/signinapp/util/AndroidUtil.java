@@ -14,6 +14,5 @@ public final class AndroidUtil {
 
     public static void toast(Context context, @StringRes int resId) {
         toast(context, context.getResources().getString(resId));
-
     }
 }

@@ -38,6 +38,6 @@ public class StatusViewModel extends ViewModel {
     }
 
     public void updateTeacherSigninStatus() {
-
+        // TODO 教师所在班级签到状态
     }
 }
