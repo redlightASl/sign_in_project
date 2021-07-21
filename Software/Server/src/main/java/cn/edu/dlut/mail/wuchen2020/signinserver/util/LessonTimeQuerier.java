@@ -113,11 +113,17 @@ public abstract class LessonTimeQuerier {
         private static final LocalDate TERM_START = LocalDate.of(2021, 3, 1); // LocalDate.of(0, 9, 1), LocalDate.of(0, 3, 1), LocalDate.of(0, 6, 28)
         private static final List<Pair<LocalTime, LocalTime>> LESSONS = new ArrayList<>();
         static {
-            LESSONS.add(Pair.of(LocalTime.of(8, 0), LocalTime.of(9, 35)));
-            LESSONS.add(Pair.of(LocalTime.of(10, 05), LocalTime.of(11, 45)));
-            LESSONS.add(Pair.of(LocalTime.of(13, 30), LocalTime.of(15, 05)));
-            LESSONS.add(Pair.of(LocalTime.of(15, 35), LocalTime.of(17, 10)));
-            LESSONS.add(Pair.of(LocalTime.of(18, 0), LocalTime.of(20, 0)));
+            LESSONS.add(Pair.of(LocalTime.of(8, 0), LocalTime.of(8, 45)));
+            LESSONS.add(Pair.of(LocalTime.of(8, 50), LocalTime.of(9, 35)));
+            LESSONS.add(Pair.of(LocalTime.of(10, 05), LocalTime.of(10, 50)));
+            LESSONS.add(Pair.of(LocalTime.of(11, 0), LocalTime.of(11, 45)));
+            LESSONS.add(Pair.of(LocalTime.of(13, 30), LocalTime.of(14, 15)));
+            LESSONS.add(Pair.of(LocalTime.of(14, 20), LocalTime.of(15, 05)));
+            LESSONS.add(Pair.of(LocalTime.of(15, 35), LocalTime.of(16, 20)));
+            LESSONS.add(Pair.of(LocalTime.of(16, 25), LocalTime.of(17, 10)));
+            LESSONS.add(Pair.of(LocalTime.of(18, 0), LocalTime.of(18, 50)));
+            LESSONS.add(Pair.of(LocalTime.of(18, 55), LocalTime.of(19, 45)));
+            LESSONS.add(Pair.of(LocalTime.of(19, 50), LocalTime.of(19, 40)));
         }
         
         @Override
@@ -131,7 +137,7 @@ public abstract class LessonTimeQuerier {
 
         @Override
         public int getTotalWeek() {
-            return 18;
+            return 30;
         }
 
         @Override

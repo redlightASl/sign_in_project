@@ -26,8 +26,8 @@ public class UserFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewBinding = FragmentUserBinding.inflate(inflater, container, false);
         userInfoAdapter = new UserInfoAdapter();
-        viewBinding.recyclerUserInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
-        viewBinding.recyclerUserInfo.setAdapter(userInfoAdapter);
+        viewBinding.listUserInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
+        viewBinding.listUserInfo.setAdapter(userInfoAdapter);
         viewBinding.buttonLogout.setOnClickListener(view -> {
             viewModel.logout();
             startLoginActivity();

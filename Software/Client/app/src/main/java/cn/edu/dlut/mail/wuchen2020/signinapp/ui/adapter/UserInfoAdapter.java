@@ -34,14 +34,14 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_user_info, viewGroup, false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_user_info, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Pair<String, String> pair =  userInfo.get(position);
         viewHolder.getTextViewKey().setText(pair.first);
         viewHolder.getTextViewValue().setText(pair.second);

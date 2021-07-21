@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import cn.edu.dlut.mail.wuchen2020.signinapp.R;
 import cn.edu.dlut.mail.wuchen2020.signinapp.databinding.FragmentStatusBinding;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Course;
+import cn.edu.dlut.mail.wuchen2020.signinapp.ui.adapter.SigninRecordAdapter;
 import cn.edu.dlut.mail.wuchen2020.signinapp.viewmodel.MainViewModel;
 import cn.edu.dlut.mail.wuchen2020.signinapp.viewmodel.StatusViewModel;
 
@@ -20,6 +22,7 @@ public class StatusFragment extends Fragment {
     private FragmentStatusBinding viewBinding;
     private MainViewModel mainViewModel;
     private StatusViewModel viewModel;
+    private SigninRecordAdapter signinRecordAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +33,9 @@ public class StatusFragment extends Fragment {
                 updateSigninStatus(userType);
             }
         });
+        signinRecordAdapter = new SigninRecordAdapter();
+        viewBinding.listHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        viewBinding.listHistory.setAdapter(signinRecordAdapter);
         return viewBinding.getRoot();
     }
 
@@ -46,6 +52,9 @@ public class StatusFragment extends Fragment {
             updateSigninStatus(userType);
         });
         viewModel.getStatus().observe(getViewLifecycleOwner(), signinStatus -> {
+            if (signinStatus == null) {
+                return;
+            }
             int color;
             int icon;
             String str;
@@ -64,18 +73,28 @@ public class StatusFragment extends Fragment {
             if (signinStatus.getStatus() != 2) {
                 Course course = signinStatus.getCourse();
                 viewBinding.textLesson.setText(course.getName() + " " + course.getLocation());
+                viewBinding.textLesson.setVisibility(View.VISIBLE);
             } else {
                 viewBinding.textLesson.setText("");
+                viewBinding.textLesson.setVisibility(View.GONE);
             }
             viewBinding.getRoot().setRefreshing(false);
+        });
+        viewModel.getRecords().observe(getViewLifecycleOwner(), signinRecords -> {
+            if (signinRecords == null) {
+                return;
+            }
+            signinRecordAdapter.setRecords(signinRecords);
+            signinRecordAdapter.notifyDataSetChanged();
         });
     }
 
     private void updateSigninStatus(int userType) {
         if (userType == 0) { // 学生
-            viewModel.updateStudentSigninStatus();
+            viewModel.updateStudentStatus();
+            viewModel.updateStudentRecords();
         } else if (userType == 1) { // 教师
-            viewModel.updateTeacherSigninStatus();
+            viewModel.updateTeacherStatus();
         }
     }
 }

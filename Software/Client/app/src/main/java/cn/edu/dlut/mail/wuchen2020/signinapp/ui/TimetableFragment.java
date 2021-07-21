@@ -78,7 +78,7 @@ public class TimetableFragment extends Fragment {
                 return;
             }
             weekAdapter.clear();
-            for (int i = 1; i <= totalWeeks + 10; i++) { // FIXME
+            for (int i = 1; i <= totalWeeks; i++) {
                 weekAdapter.add(i);
             }
             weekAdapter.notifyDataSetChanged();

@@ -37,7 +37,7 @@
                     android:layout_gravity="center_vertical"
                     android:contentDescription="签到状态图标"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_check_box_checked_24"
+                    android:src="@drawable/ic_check_box_blank_24"
                     app:tint="@color/white" />
 
                 <LinearLayout
@@ -51,16 +51,17 @@
                         android:id="@+id/text_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="当前无课"
                         android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="当前无课" />
 
                     <TextView
                         android:id="@+id/text_lesson"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="这是一节大水课 C101"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="visible"
+                        tools:text="这是一节大水课 C101" />
 
                 </LinearLayout>
 
@@ -71,7 +72,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_history"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_signin_record" />
 
     </LinearLayout>
 

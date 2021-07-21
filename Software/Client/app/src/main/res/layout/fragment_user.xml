@@ -57,7 +57,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_user_info"
+        android:id="@+id/list_user_info"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

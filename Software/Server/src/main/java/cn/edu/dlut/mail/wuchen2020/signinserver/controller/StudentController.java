@@ -12,6 +12,7 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession.UserRole;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.service.StudentService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -29,6 +30,7 @@ public class StudentController {
     public StudentService studentService;
     
     @GetMapping("/getStudentInfo")
+    @Operation(description = "获取学生信息")
     public Object getStudentInfo(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
@@ -38,6 +40,7 @@ public class StudentController {
     }
     
     @GetMapping("/getTimetable")
+    @Operation(description = "获取学生课程表")
     public Object getTimetable(HttpSession httpSession,
             @RequestParam(name = "week", required = false, defaultValue = "0") int week) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
@@ -48,6 +51,7 @@ public class StudentController {
     }
     
     @GetMapping("/getSigninStatus")
+    @Operation(description = "获取学生当前签到状态")
     public Object getSigninStatus(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
@@ -57,6 +61,7 @@ public class StudentController {
     }
     
     @GetMapping("/getSigninHistory")
+    @Operation(description = "获取学生签到历史记录")
     public Object getSigninHistory(HttpSession httpSession,
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "count", required = false, defaultValue = "20") int count) {

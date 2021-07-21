@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.io.IOException;
+import java.util.List;
 
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Result;
+import cn.edu.dlut.mail.wuchen2020.signinapp.model.SigninRecord;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.SigninStatus;
 import cn.edu.dlut.mail.wuchen2020.signinapp.util.HttpUtil;
 import okhttp3.Call;
@@ -16,12 +18,17 @@ import okhttp3.Response;
 
 public class StatusViewModel extends ViewModel {
     private MutableLiveData<SigninStatus> status = new MutableLiveData<>();
+    private MutableLiveData<List<SigninRecord>> records = new MutableLiveData<>();
 
     public MutableLiveData<SigninStatus> getStatus() {
         return status;
     }
 
-    public void updateStudentSigninStatus() {
+    public MutableLiveData<List<SigninRecord>> getRecords() {
+        return records;
+    }
+
+    public void updateStudentStatus() {
         Request request = new Request.Builder()
                 .url("https://" + HttpUtil.SIGNIN_API + "/api/student/getSigninStatus")
                 .get()
@@ -37,7 +44,23 @@ public class StatusViewModel extends ViewModel {
         });
     }
 
-    public void updateTeacherSigninStatus() {
+    public void updateStudentRecords() {
+        Request request = new Request.Builder()
+                .url("https://" + HttpUtil.SIGNIN_API + "/api/student/getSigninHistory?page=0&count=20")
+                .get()
+                .build();
+        HttpUtil.getClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {}
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Result<List<SigninRecord>> result = Result.fromJsonArray(response.body().string(), SigninRecord.class);
+                records.postValue(result.getData());
+            }
+        });
+    }
+
+    public void updateTeacherStatus() {
         // TODO 教师所在班级签到状态
     }
 }

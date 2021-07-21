@@ -12,8 +12,6 @@ public class AdminInfoVO {
     @Schema(description = "管理员账号", example = "admin")
     private String username;
 
-    public AdminInfoVO() {}
-
     public String getUsername() {
         return username;
     }

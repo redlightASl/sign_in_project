@@ -16,8 +16,6 @@ public class TeacherInfoVO {
     @Schema(description = "班主任所带班级", example = "软2001")
     private String className;
 
-    public TeacherInfoVO() {}
-
     public String getNumber() {
         return number;
     }
