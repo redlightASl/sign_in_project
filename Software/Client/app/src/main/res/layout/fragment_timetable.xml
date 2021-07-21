@@ -44,11 +44,16 @@
 
         </LinearLayout>
 
-        <cn.edu.dlut.mail.wuchen2020.signinapp.ui.widget.TimetableView
-            android:id="@+id/timetable"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:titleBackgroundColor="#FDFDFD" />
+            android:layout_height="match_parent">
+
+            <cn.edu.dlut.mail.wuchen2020.signinapp.ui.widget.TimetableView
+                android:id="@+id/timetable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleBackgroundColor="#FDFDFD" />
+        </ScrollView>
 
     </LinearLayout>
 
