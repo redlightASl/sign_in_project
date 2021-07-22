@@ -24,7 +24,7 @@ public class LoginViewModel extends ViewModel {
     public String username;
     public String password;
 
-    private MutableLiveData<Integer> loginResult = new MutableLiveData<>();
+    private final MutableLiveData<Integer> loginResult = new MutableLiveData<>();
 
     public LoginViewModel() {}
 

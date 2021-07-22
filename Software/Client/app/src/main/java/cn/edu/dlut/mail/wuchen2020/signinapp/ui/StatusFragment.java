@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import java.util.Objects;
+
 import cn.edu.dlut.mail.wuchen2020.signinapp.R;
 import cn.edu.dlut.mail.wuchen2020.signinapp.databinding.FragmentStatusBinding;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Course;
@@ -86,6 +88,27 @@ public class StatusFragment extends Fragment {
             }
             signinRecordAdapter.setRecords(signinRecords);
             signinRecordAdapter.notifyDataSetChanged();
+        });
+        viewModel.getStatusTeacher().observe(getViewLifecycleOwner(), signinStatus -> {
+            if (signinStatus == null) {
+                return;
+            }
+            boolean allSignin = Objects.equals(signinStatus.getSigninCount(), signinStatus.getTotalCount());
+            int color = allSignin ? android.R.color.holo_green_dark : android.R.color.holo_red_dark;
+            int icon = allSignin ? R.drawable.ic_check_box_checked_24 : R.drawable.ic_check_box_blank_24;
+            viewBinding.cardStatus.setCardBackgroundColor(getResources().getColor(color));
+            viewBinding.imageStatus.setImageResource(icon);
+            if (signinStatus.getCourse() != null) {
+                viewBinding.textStatus.setText(allSignin ? "已全部签到" : "还有同学没有签到");
+                Course course = signinStatus.getCourse();
+                viewBinding.textLesson.setText(course.getName() + " " + course.getLocation());
+                viewBinding.textLesson.setVisibility(View.VISIBLE);
+            } else {
+                viewBinding.textStatus.setText("您当前无课");
+                viewBinding.textLesson.setText("");
+                viewBinding.textLesson.setVisibility(View.GONE);
+            }
+            viewBinding.getRoot().setRefreshing(false);
         });
     }
 

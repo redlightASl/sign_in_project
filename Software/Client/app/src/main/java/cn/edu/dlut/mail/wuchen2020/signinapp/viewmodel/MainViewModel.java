@@ -15,7 +15,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainViewModel extends ViewModel {
-    private MutableLiveData<Integer> userType = new MutableLiveData<>();
+    private final MutableLiveData<Integer> userType = new MutableLiveData<>();
 
     public LiveData<Integer> getUserType() {
         return userType;

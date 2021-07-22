@@ -17,8 +17,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class UserViewModel extends ViewModel {
-    private MutableLiveData<Student> student = new MutableLiveData<>();
-    private MutableLiveData<Teacher> teacher = new MutableLiveData<>();
+    private final MutableLiveData<Student> student = new MutableLiveData<>();
+    private final MutableLiveData<Teacher> teacher = new MutableLiveData<>();
 
     public MutableLiveData<Student> getStudent() {
         return student;

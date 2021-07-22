@@ -17,10 +17,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class TimetableViewModel extends ViewModel {
-    MutableLiveData<Integer> totalWeeks = new MutableLiveData<>();
-    MutableLiveData<Integer> currentWeek = new MutableLiveData<>();
-    MutableLiveData<List<LessonTime>> lessonTimes = new MutableLiveData<>();
-    MutableLiveData<List<Course>> timetable = new MutableLiveData<>();
+    private final MutableLiveData<Integer> totalWeeks = new MutableLiveData<>();
+    private final MutableLiveData<Integer> currentWeek = new MutableLiveData<>();
+    private final MutableLiveData<List<LessonTime>> lessonTimes = new MutableLiveData<>();
+    private final MutableLiveData<List<Course>> timetable = new MutableLiveData<>();
 
     public MutableLiveData<Integer> getTotalWeeks() {
         return totalWeeks;

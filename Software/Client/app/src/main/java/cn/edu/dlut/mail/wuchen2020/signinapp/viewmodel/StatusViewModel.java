@@ -10,6 +10,7 @@ import java.util.List;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Result;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.SigninRecord;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.SigninStatus;
+import cn.edu.dlut.mail.wuchen2020.signinapp.model.SigninStatusTeacher;
 import cn.edu.dlut.mail.wuchen2020.signinapp.util.HttpUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -17,8 +18,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class StatusViewModel extends ViewModel {
-    private MutableLiveData<SigninStatus> status = new MutableLiveData<>();
-    private MutableLiveData<List<SigninRecord>> records = new MutableLiveData<>();
+    private final MutableLiveData<SigninStatus> status = new MutableLiveData<>();
+    private final MutableLiveData<List<SigninRecord>> records = new MutableLiveData<>();
+    private final MutableLiveData<SigninStatusTeacher> statusTeacher = new MutableLiveData<>();
 
     public MutableLiveData<SigninStatus> getStatus() {
         return status;
@@ -26,6 +28,10 @@ public class StatusViewModel extends ViewModel {
 
     public MutableLiveData<List<SigninRecord>> getRecords() {
         return records;
+    }
+
+    public MutableLiveData<SigninStatusTeacher> getStatusTeacher() {
+        return statusTeacher;
     }
 
     public void updateStudentStatus() {
@@ -61,6 +67,18 @@ public class StatusViewModel extends ViewModel {
     }
 
     public void updateTeacherStatus() {
-        // TODO 教师所在班级签到状态
+        Request request = new Request.Builder()
+                .url("https://" + HttpUtil.SIGNIN_API + "/api/teacher/getSigninStatus")
+                .get()
+                .build();
+        HttpUtil.getClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {}
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Result<SigninStatusTeacher> result = Result.fromJson(response.body().string(), SigninStatusTeacher.class);
+                statusTeacher.postValue(result.getData());
+            }
+        });
     }
 }
