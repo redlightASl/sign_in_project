@@ -6,37 +6,45 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.io.IOException;
+import java.util.Objects;
 
+import cn.edu.dlut.mail.wuchen2020.signinapp.api.AuthAPI;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Result;
 import cn.edu.dlut.mail.wuchen2020.signinapp.util.HttpUtil;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainViewModel extends ViewModel {
     private final MutableLiveData<Integer> userType = new MutableLiveData<>();
+
+    private final AuthAPI authAPI;
+
+    public MainViewModel() {
+        authAPI = HttpUtil.getRetrofit().create(AuthAPI.class);
+    }
 
     public LiveData<Integer> getUserType() {
         return userType;
     }
 
     public void updateUserType() {
-        Request request = new Request.Builder()
-                .url("https://" + HttpUtil.SIGNIN_API + "/api/usertype")
-                .get()
-                .build();
-        HttpUtil.getClient().newCall(request).enqueue(new Callback() {
+        authAPI.getUserType().enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 userType.postValue(-1);
             }
 
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Result<Integer> result = Result.fromJson(response.body().string(), Integer.class);
-                Integer type = result.getData();
-                userType.postValue(type != null ? type : -1);
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    Result<Integer> result = Result.fromJson(Objects.requireNonNull(response.body()).string(), Integer.class);
+                    Integer type = result.getData();
+                    userType.postValue(type != null ? type : -1);
+                } catch (IOException | NullPointerException e) {
+                    onFailure(call, e);
+                }
             }
         });
     }

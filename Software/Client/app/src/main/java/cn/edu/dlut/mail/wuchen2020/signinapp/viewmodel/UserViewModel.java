@@ -5,20 +5,34 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import cn.edu.dlut.mail.wuchen2020.signinapp.SigninApplication;
+import cn.edu.dlut.mail.wuchen2020.signinapp.api.AuthAPI;
+import cn.edu.dlut.mail.wuchen2020.signinapp.api.StudentAPI;
+import cn.edu.dlut.mail.wuchen2020.signinapp.api.TeacherAPI;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Result;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Student;
 import cn.edu.dlut.mail.wuchen2020.signinapp.model.Teacher;
 import cn.edu.dlut.mail.wuchen2020.signinapp.util.HttpUtil;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserViewModel extends ViewModel {
     private final MutableLiveData<Student> student = new MutableLiveData<>();
     private final MutableLiveData<Teacher> teacher = new MutableLiveData<>();
+
+    private final AuthAPI authAPI;
+    private final StudentAPI studentAPI;
+    private final TeacherAPI teacherAPI;
+
+    public UserViewModel() {
+        authAPI = HttpUtil.getRetrofit().create(AuthAPI.class);
+        studentAPI = HttpUtil.getRetrofit().create(StudentAPI.class);
+        teacherAPI = HttpUtil.getRetrofit().create(TeacherAPI.class);
+    }
 
     public MutableLiveData<Student> getStudent() {
         return student;
@@ -29,49 +43,44 @@ public class UserViewModel extends ViewModel {
     }
 
     public void updateStudentInfo() {
-        Request request = new Request.Builder()
-                .url("https://" + HttpUtil.SIGNIN_API + "/api/student/getStudentInfo")
-                .get()
-                .build();
-        HttpUtil.getClient().newCall(request).enqueue(new Callback() {
+        studentAPI.getStudentInfo().enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {}
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {}
+
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Result<Student> result = Result.fromJson(response.body().string(), Student.class);
-                student.postValue(result.getData());
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    Result<Student> result = Result.fromJson(Objects.requireNonNull(response.body()).string(), Student.class);
+                    student.postValue(result.getData());
+                } catch (IOException | NullPointerException ignored) {}
             }
         });
     }
 
     public void updateTeacherInfo() {
-        Request request = new Request.Builder()
-                .url("https://" + HttpUtil.SIGNIN_API + "/api/teacher/getTeacherInfo")
-                .get()
-                .build();
-        HttpUtil.getClient().newCall(request).enqueue(new Callback() {
+        teacherAPI.getTeacherInfo().enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {}
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {}
+
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Result<Teacher> result = Result.fromJson(response.body().string(), Teacher.class);
-                teacher.postValue(result.getData());
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    Result<Teacher> result = Result.fromJson(Objects.requireNonNull(response.body()).string(), Teacher.class);
+                    teacher.postValue(result.getData());
+                } catch (IOException | NullPointerException ignored) {}
             }
         });
     }
 
     public void logout() {
-        Request request = new Request.Builder()
-                .url("https://" + HttpUtil.SIGNIN_API + "/api/logout")
-                .get()
-                .build();
-        HttpUtil.getClient().newCall(request).enqueue(new Callback() {
+        authAPI.logout().enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 SigninApplication.clearCookies();
             }
+
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 SigninApplication.clearCookies();
             }
         });
