@@ -3,6 +3,9 @@ package cn.edu.dlut.mail.wuchen2020.signinapp.ui;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,6 +28,12 @@ public class StatusFragment extends Fragment {
     private MainViewModel mainViewModel;
     private StatusViewModel viewModel;
     private SigninRecordAdapter signinRecordAdapter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -110,6 +119,26 @@ public class StatusFragment extends Fragment {
             }
             viewBinding.getRoot().setRefreshing(false);
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_action_bar, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.item_refresh) {
+            Integer userType = mainViewModel.getUserType().getValue();
+            if (userType != null && !viewBinding.getRoot().isRefreshing()) {
+                viewBinding.getRoot().setRefreshing(true);
+                updateSigninStatus(userType);
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void updateSigninStatus(int userType) {

@@ -31,13 +31,13 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    def core_version = "1.6.0"
     def lifecycle_version = "2.3.1"
     def camerax_version = "1.0.0"
     def nav_version = "2.3.5"
+    def paging_version = "3.0.0"
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "androidx.core:core:$core_version"
     implementation "androidx.appcompat:appcompat:1.2.0"
     implementation "androidx.fragment:fragment:1.2.5"
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
@@ -50,6 +50,7 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha25"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+    implementation "androidx.paging:paging-runtime:$paging_version"
     implementation "androidx.constraintlayout:constraintlayout:2.0.1"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation "androidx.cardview:cardview:1.0.0"

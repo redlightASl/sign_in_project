@@ -3,6 +3,8 @@ package cn.edu.dlut.mail.wuchen2020.signinapp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import cn.edu.dlut.mail.wuchen2020.signinapp.R;
 import cn.edu.dlut.mail.wuchen2020.signinapp.databinding.FragmentUserBinding;
 import cn.edu.dlut.mail.wuchen2020.signinapp.ui.adapter.UserInfoAdapter;
 import cn.edu.dlut.mail.wuchen2020.signinapp.viewmodel.MainViewModel;
@@ -21,6 +24,12 @@ public class UserFragment extends Fragment {
     private MainViewModel mainViewModel;
     private UserViewModel viewModel;
     private UserInfoAdapter userInfoAdapter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +81,12 @@ public class UserFragment extends Fragment {
             userInfoAdapter.putUserInfo("工号", teacher.getNumber());
             userInfoAdapter.putUserInfo("任课班级", teacher.getClassName() != null ? teacher.getClassName() : "无");
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void startLoginActivity() {
