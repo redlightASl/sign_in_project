@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession.UserRole;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.LessonVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.TeacherInfoVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.service.TeacherService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -30,7 +36,8 @@ public class TeacherController {
     public TeacherService teacherService;
     
     @GetMapping("/getTeacherInfo")
-    @Operation(description = "获取教师信息")
+    @Operation(summary = "获取教师信息")
+    @ApiResponse(description = "教师信息", content = @Content(schema = @Schema(implementation = TeacherInfoVO.class)))
     public Object getTeacherInfo(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.TEACHER) {
@@ -40,7 +47,8 @@ public class TeacherController {
     }
     
     @GetMapping("/getTimetable")
-    @Operation(description = "获取教师课程表")
+    @Operation(summary = "获取教师课程表")
+    @ApiResponse(description = "教师课程表", content = @Content(array = @ArraySchema(schema = @Schema(implementation = LessonVO.class))))
     public Object getTimetable(HttpSession httpSession,
             @RequestParam(name = "week", required = false, defaultValue = "0") int week) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
@@ -51,7 +59,8 @@ public class TeacherController {
     }
     
     @GetMapping("/getSigninStatus")
-    @Operation(description = "获取教师所在教学班签到状态")
+    @Operation(summary = "获取教师所在教学班签到状态")
+    @ApiResponse(description = "教师所在教学班签到状态", content = @Content(schema = @Schema(example = "{\n  \"totalCount\": 0,\n  \"signinCount\": 0,\n  \"course\": LessonVO\n}")))
     public Object getSigninStatus(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.TEACHER) {

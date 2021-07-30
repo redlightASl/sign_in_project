@@ -10,9 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession.UserRole;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.LessonVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.SigninRecordVO;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.StudentInfoVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -30,7 +37,8 @@ public class StudentController {
     public StudentService studentService;
     
     @GetMapping("/getStudentInfo")
-    @Operation(description = "获取学生信息")
+    @Operation(summary = "获取学生信息")
+    @ApiResponse(description = "学生信息", content = @Content(schema = @Schema(implementation = StudentInfoVO.class)))
     public Object getStudentInfo(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
@@ -40,9 +48,10 @@ public class StudentController {
     }
     
     @GetMapping("/getTimetable")
-    @Operation(description = "获取学生课程表")
+    @Operation(summary = "获取学生课程表")
+    @ApiResponse(description = "学生课程表", content = @Content(array = @ArraySchema(schema = @Schema(implementation = LessonVO.class))))
     public Object getTimetable(HttpSession httpSession,
-            @RequestParam(name = "week", required = false, defaultValue = "0") int week) {
+            @RequestParam(name = "week", defaultValue = "1") int week) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
             return studentService.getTimetable(user.getUsername(), week);
@@ -51,7 +60,8 @@ public class StudentController {
     }
     
     @GetMapping("/getSigninStatus")
-    @Operation(description = "获取学生当前签到状态")
+    @Operation(summary = "获取学生当前签到状态")
+    @ApiResponse(description = "学生签到状态", content = @Content(schema = @Schema(example = "{\n  \"status\": 0,\n  \"course\": LessonVO\n}")))
     public Object getSigninStatus(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.STUDENT) {
@@ -61,7 +71,8 @@ public class StudentController {
     }
     
     @GetMapping("/getSigninHistory")
-    @Operation(description = "获取学生签到历史记录")
+    @Operation(summary = "获取学生签到历史记录")
+    @ApiResponse(description = "存储了学生签到历史记录的数组", content = @Content(array = @ArraySchema(schema = @Schema(implementation = SigninRecordVO.class))))
     public Object getSigninHistory(HttpSession httpSession,
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "count", required = false, defaultValue = "20") int count) {

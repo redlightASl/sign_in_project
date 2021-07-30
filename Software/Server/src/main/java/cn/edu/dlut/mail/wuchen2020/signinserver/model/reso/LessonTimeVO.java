@@ -11,11 +11,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema(description = "课节信息")
 public class LessonTimeVO {
-    @Schema(description = "第几节课")
+    @Schema(description = "第几节课", example = "1")
     private int period;
-    @Schema(description = "上课时间")
+    @Schema(description = "上课时间", implementation = String.class, example = "00:00:00")
     private LocalTime startTime;
-    @Schema(description = "下课时间")
+    @Schema(description = "下课时间", implementation = String.class, example = "00:00:00")
     private LocalTime endTime;
     
     public int getPeriod() {

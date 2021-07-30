@@ -14,6 +14,9 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.model.reqo.LoginVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -31,7 +34,8 @@ public class AuthController {
     public AuthService service;
 
     @PostMapping("/login")
-    @Operation(description = "登录")
+    @Operation(summary = "登录")
+    @ApiResponse(description = "登录成功的用户种类或者登录失败提示", content = @Content(schema = @Schema(implementation = Integer.class)))
     public Object login(HttpSession httpSession, @RequestBody @Validated LoginVO loginVO) {
         Object user = httpSession.getAttribute("user");
         if (user == null) {
@@ -43,20 +47,23 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    @Operation(description = "注销")
+    @Operation(summary = "注销")
+    @ApiResponse(description = "是否注销成功")
     public boolean logout(HttpSession httpSession) {
         return service.logout(httpSession);
     }
     
     @GetMapping("/usertype")
-    @Operation(description = "查询用户种类")
+    @Operation(summary = "查询用户种类")
+    @ApiResponse(description = "用户种类(0: 学生, 1: 教师, 2: 管理员)")
     public int getUserType(HttpSession httpSession) {
         return service.getUserType(httpSession);
     }
     
     @PostMapping("/changePassword")
-    @Operation(description = "修改密码")
-    public boolean changePassword(HttpSession httpSession, String oldPassword, String newPassword) {
+    @Operation(summary = "修改密码")
+    @ApiResponse(description = "是否成功修改密码")
+    public boolean changePassword(HttpSession httpSession, @RequestBody String oldPassword, @RequestBody String newPassword) {
         return service.changePassword(httpSession, oldPassword, newPassword);
     }
 }
