@@ -1,5 +1,6 @@
 package cn.edu.dlut.mail.wuchen2020.signinserver.config;
 
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,5 +27,19 @@ public class Swagger3Config {
                         .termsOfService("https://gitee.com/redlightasl/sign_in_project")
                         .license(new License().name("GNU General Public License v3.0").url("http://www.gnu.org/licenses/gpl-3.0.html"))
                     );
+                /*
+                .components(new Components()
+                        .addSecuritySchemes("cookieAuth", new SecurityScheme().type(Type.APIKEY).in(In.COOKIE).name("JSESSIONID"))
+                    )
+                .security(List.of(new SecurityRequirement().addList("cookieAuth")))
+                */
+    }
+    
+    @Bean
+    public GroupedOpenApi adminApi() {
+        return GroupedOpenApi.builder()
+                .group("default")
+                .pathsToMatch("/api/**")
+                .build();
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
+import io.swagger.v3.oas.annotations.Hidden;
 
 /**
  * 自定义页面异常
@@ -15,6 +16,7 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
  * @author Wu Chen
  */
 @RestController
+@Hidden
 public class CommonErrorController implements ErrorController {
     @RequestMapping("/error")
     public ResultVO handleError(HttpServletRequest request, HttpServletResponse response) {

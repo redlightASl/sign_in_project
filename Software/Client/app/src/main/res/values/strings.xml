@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Sign in App</string>
+    <string name="nav_status">签到</string>
+    <string name="nav_timetable">课程表</string>
+    <string name="nav_user">我</string>
+
+    <string-array name="week">
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期日</item>
+    </string-array>
 </resources>

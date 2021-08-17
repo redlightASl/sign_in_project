@@ -18,7 +18,8 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.Course;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.CourseSelection;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.SigninRecord;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.SigninRecord.SigninStatus;
-import cn.edu.dlut.mail.wuchen2020.signinserver.util.CourseHelper;
+import cn.edu.dlut.mail.wuchen2020.signinserver.util.DateUtils;
+import cn.edu.dlut.mail.wuchen2020.signinserver.util.LessonTimeQuerier;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.Student;
 
 /**
@@ -36,6 +37,7 @@ public class SigninService {
     private CourseSelectionDAO courseSelectionDAO;
     @Autowired
     private SigninRecordDAO signinRecordDAO;
+    private LessonTimeQuerier querier = LessonTimeQuerier.instance();
 
     public SigninStatus signin(String fingerprint, String location, long timestamp) {
         // 从student表里查询学生
@@ -43,20 +45,18 @@ public class SigninService {
         if (student == null) throw new BusinessException(2001, "未查询到该学生");
         
         // 根据时间戳或者当前时间确定是第几周, 周几和第几节课
-        long now = timestamp; // FIXME !!TEST!!
-        // long now = System.currentTimeMillis();
-        // if (timestamp <= now && now - timestamp < 10000) now = timestamp;
+        long now = Math.min(timestamp, System.currentTimeMillis());
         Instant instant = Instant.ofEpochMilli(now);
         LocalDate date = LocalDate.ofInstant(instant, ZoneId.systemDefault());
         LocalTime time = LocalTime.ofInstant(instant, ZoneId.systemDefault());
-        int week = CourseHelper.getWeekFromDate(date);
-        int day = CourseHelper.getDayOfWeekFromDate(date);
-        CourseHelper.Lesson lesson = CourseHelper.getLessonFromTime(time);
+        int week = querier.getWeek(date);
+        int day = DateUtils.getDayOfWeek(date);
+        int period = querier.getPeriod(time);
         
         // 从student_course和course表里查询学生上课的信息
-        CourseSelection courseSelection = courseSelectionDAO.findCourseSelected(student.getId(), week, day, lesson.getOrder());
+        CourseSelection courseSelection = courseSelectionDAO.findCourseSelected(student.getId(), week, day, period);
         if (courseSelection == null) {
-            return SigninStatus.NO_CLASS;
+            return SigninStatus.NO_LESSON;
         }
         Course course = courseSelection.getCourse();
         if (!course.getLocation().equals(location)) {
@@ -71,20 +71,20 @@ public class SigninService {
         record.setTime(new Date(now));
         
         // 查询签到记录并确定签到类型
-        CourseHelper.Lesson startLesson = CourseHelper.getLessonFromOrder(course.getStartTime());
-        CourseHelper.Lesson endLesson = CourseHelper.getLessonFromOrder(course.getEndTime());
-        Date startDate = Date.from(startLesson.getStartTime().atDate(date).atZone(ZoneId.systemDefault()).toInstant());
-        List<SigninRecord> records = signinRecordDAO.findByStudentAndTimeBetween(student, startDate, new Date());
+        LocalTime startTime = querier.getStartTime(course.getStartTime());
+        LocalTime endTime = querier.getEndTime(course.getEndTime());
+        Date startDate = DateUtils.localDateTimeToDate(startTime.atDate(date));
+        List<SigninRecord> records = signinRecordDAO.findByStudentAndTimeAfter(student, startDate);
         if (records == null || records.isEmpty()) {
-            if (lesson.getOrder() == endLesson.getOrder() && lesson.isBreaking()) {
-                return SigninStatus.NO_CLASS;
+            if (time.isAfter(endTime)) {
+                return SigninStatus.NO_LESSON;
             }
             record.setStatus(SigninStatus.SUCCESS);
         } else {
             SigninRecord lastRecord = records.get(records.size() - 1);
-            if (lesson.getOrder() == endLesson.getOrder() && lesson.isBreaking()) {
+            if (time.isAfter(endTime)) {
                 if (lastRecord.getStatus() == SigninStatus.LEAVE) {
-                    return SigninStatus.NO_CLASS;
+                    return SigninStatus.NO_LESSON;
                 }
                 record.setStatus(SigninStatus.LEAVE);
             } else {

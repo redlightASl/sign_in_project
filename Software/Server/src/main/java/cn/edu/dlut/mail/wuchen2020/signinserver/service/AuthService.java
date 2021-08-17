@@ -7,8 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
-
 import cn.edu.dlut.mail.wuchen2020.signinserver.dao.AdminDAO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.dao.StudentDAO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.dao.TeacherDAO;
@@ -18,6 +16,7 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.Teacher;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession.UserRole;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
+import cn.edu.dlut.mail.wuchen2020.signinserver.util.EncryptionUtils;
 
 /**
  * 用户(学生/教师/管理员)登录和注销的业务逻辑
@@ -72,15 +71,15 @@ public class AuthService {
         }
         return ResultVO.fail(1001, "账号或密码错误");
     }
-
-    public int getUserInfo(HttpSession httpSession) {
-        UserSession user = (UserSession) httpSession.getAttribute("user");
-        return user.getRole().ordinal();
-    }
-
+    
     public boolean logout(HttpSession httpSession) {
         httpSession.removeAttribute("user");
         return true;
+    }
+    
+    public int getUserType(HttpSession httpSession) {
+        UserSession user = (UserSession) httpSession.getAttribute("user");
+        return user.getRole().ordinal();
     }
     
     public boolean changePassword(HttpSession httpSession, String oldPassword, String newPassword) {
@@ -123,8 +122,6 @@ public class AuthService {
     }
 
     public static String encodeMD5(String password) {
-        String saltPassword = PASSWORD_SALT + password;
-        String md5Password = DigestUtils.md5DigestAsHex(saltPassword.getBytes());
-        return md5Password;
+        return EncryptionUtils.encodeMD5(PASSWORD_SALT, password);
     }
 }

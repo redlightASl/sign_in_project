@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.pojo.UserSession.UserRole;
+import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.AdminInfoVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.service.AdminService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -28,11 +33,13 @@ public class AdminController {
     public AdminService adminService;
     
     @GetMapping("/getAdminInfo")
+    @Operation(summary = "获取管理员信息")
+    @ApiResponse(description = "管理员信息", content = @Content(schema = @Schema(implementation = AdminInfoVO.class)))
     public Object getAdminInfo(HttpSession httpSession) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.ADMIN) {
             return adminService.getAdminInfo(user.getUsername());
         }
-        return ResultVO.fail(1002, "没有权限");
+        return ResultVO.fail(1003, "没有权限");
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_status"
+        android:icon="@drawable/ic_check_box_checked_24"
+        android:title="@string/nav_status" />
+    <item
+        android:id="@+id/nav_timetable"
+        android:icon="@drawable/ic_event_note_24"
+        android:title="@string/nav_timetable" />
+    <item
+        android:id="@+id/nav_user"
+        android:icon="@drawable/ic_person_24"
+        android:title="@string/nav_user" />
+
+</menu>

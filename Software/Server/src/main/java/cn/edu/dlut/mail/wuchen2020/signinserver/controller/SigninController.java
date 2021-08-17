@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reqo.SigninVO;
 import cn.edu.dlut.mail.wuchen2020.signinserver.service.SigninService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -27,11 +29,15 @@ public class SigninController {
     public SigninService service;
 
     @PostMapping("/signin")
+    @Operation(summary = "终端签到(未加密)")
+    @ApiResponse(description = "签到结果")
     public int signin(@Validated @RequestBody SigninVO value) {
         return service.signin(value.getFingerprint(), value.getLocation(), value.getTimestamp()).ordinal();
     }
 
     @GetMapping("/time")
+    @Operation(summary = "终端获取当前时间")
+    @ApiResponse(description = "当前时间戳(毫秒)")
     public long getTime() {
         return System.currentTimeMillis();
     }

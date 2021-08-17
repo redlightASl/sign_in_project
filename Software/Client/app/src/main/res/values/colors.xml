@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="blue_700">#FF1976D2</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +8,43 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <array name="course_colors">
+        <item name="oneLight">#8AD297</item>
+        <item name="twoLight">#F9A883</item>
+        <item name="threeLight">#88CFCC</item>
+        <item name="fourLight">#F19C99</item>
+        <item name="fiveLight">#F7C56B</item>
+        <item name="sixLight">#D2A596</item>
+        <item name="sevenLight">#67BDDE</item>
+        <item name="eightLight">#9CCF5A</item>
+        <item name="nineLight">#9AB4CF</item>
+        <item name="tenLight">#9AB4CF</item>
+        <item name="elevenLight">#E593AD</item>
+        <item name="twelveLight">#E593AD</item>
+        <item name="thirteenLight">#E2C38A</item>
+        <item name="fourteenLight">#B29FD2</item>
+        <item name="fifteenLight">#E2C490</item>
+        <item name="sixteenLight">#7B7B7B</item>
+    </array>
+
+    <array name="course_colors_dark">
+        <item name="one">#5ABF6C</item>
+        <item name="two">#F79060</item>
+        <item name="three">#63C0BD</item>
+        <item name="four">#ED837F</item>
+        <item name="five">#F5B94E</item>
+        <item name="six">#CA9483</item>
+        <item name="seven">#31A6D3</item>
+        <item name="eight">#8BC73D</item>
+        <item name="nine">#87A6C6</item>
+        <item name="ten">#87A6C6</item>
+        <item name="eleven">#6DB69C</item>
+        <item name="twelve">#DF7999</item>
+        <item name="thirteen">#D6A858</item>
+        <item name="fourteen">#997FC3</item>
+        <item name="fifteen">#DDB97B</item>
+        <item name="sixteen">#ADADAD</item>
+    </array>
+
 </resources>

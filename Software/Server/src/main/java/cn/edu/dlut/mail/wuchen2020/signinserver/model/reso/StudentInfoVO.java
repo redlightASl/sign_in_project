@@ -20,8 +20,6 @@ public class StudentInfoVO {
     @Schema(description = "学院", example = "软件学院")
     private String department;
 
-    public StudentInfoVO() {}
-
     public String getNumber() {
         return number;
     }

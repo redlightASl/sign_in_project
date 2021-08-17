@@ -1,5 +1,8 @@
 package cn.edu.dlut.mail.wuchen2020.signinserver.model.reqo;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -9,8 +12,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema(description = "登录信息")
 public class LoginVO {
+    @NotEmpty
     @Schema(description = "用户名称", required = true, example = "admin")
     private String username;
+    @NotEmpty
+    @Size(min = 6)
     @Schema(description = "用户密码", required = true, example = "123456")
     private String password;
     

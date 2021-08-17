@@ -17,5 +17,7 @@ spring:
 springdoc:
   swagger-ui:
     enabled: true
+    displayRequestDuration: true
   api-docs:
     enabled: true
+  packages-to-scan: cn.edu.dlut.mail.wuchen2020.signinserver.controller

@@ -2,21 +2,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.edu.dlut.mail.wuchen2020.signinapp">
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".SigninApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SignInApplication">
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.SignInApplication"
+        android:usesCleartextTraffic="true">
+
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.LoginActivity"
+            android:label="扫脸登录"
+            android:theme="@style/Theme.SignInApplication.NoActionBar" />
+
+        <activity
+            android:name=".ui.Login2Activity"
+            android:label="账号密码登录"
+            android:parentActivityName=".ui.LoginActivity"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+
     </application>
 
 </manifest>

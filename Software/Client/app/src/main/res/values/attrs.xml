@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TimetableView">
+        <!-- 行标题(星期)高度 -->
+        <attr name="weekHeight" format="dimension" />
+        <!-- 列标题(节数)宽度 -->
+        <attr name="periodWidth" format="dimension" />
+        <!-- 单元格高度 -->
+        <attr name="cellHeight" format="dimension" />
+        <!-- 课程圆角半径 -->
+        <attr name="courseRadius" format="dimension" />
+        <!-- 分割线宽度 -->
+        <attr name="dividerSize" format="dimension" />
+        <!-- 行标题字体 -->
+        <attr name="weekTextSize" format="dimension" />
+        <!-- 列标题字体 -->
+        <attr name="periodTextSize" format="dimension" />
+        <!-- 课程信息字体 -->
+        <attr name="courseTextSize" format="dimension" />
+        <!-- 标题背景颜色 -->
+        <attr name="titleBackgroundColor" format="color" />
+
+    </declare-styleable>
+
+</resources>
