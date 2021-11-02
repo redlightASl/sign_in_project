@@ -29,6 +29,7 @@
 | id* | name | location | start_week | end_week | weekday | start_time | end_time | teacher |
 | -- | ---- | -------- | -----------| -------- | ------- | ---------- | -------- | ------- |
 | 课程序号 | 课程名称 | 上课地点 | 开始周 | 结束周 | 星期几上课 | 开始节数 | 结束节数 | 任课教师(可能为空因为有自习课) |
+
 外键:
 - teacher -> teacher.id
 
@@ -37,6 +38,7 @@
 | id* | student | course |
 | -- | ------- | ------ |
 | 序号 | 学生 | 课程 |
+
 外键:
 - student -> student.id
 - course -> course.id
@@ -46,6 +48,7 @@
 | id | student | course | location | time | status |
 | -- | ------- | ------ | -------- | ---- | ------ |
 | 日志序号 | 学生 | 课程 | 实际签到位置 | 实际签到时间 | 签到状态 |
+
 外键:
 - student -> student.id
 - course -> course.id
