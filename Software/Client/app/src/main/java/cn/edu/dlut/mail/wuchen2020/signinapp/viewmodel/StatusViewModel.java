@@ -70,7 +70,7 @@ public class StatusViewModel extends ViewModel {
                 try {
                     Result<List<SigninRecord>> result = Result.fromJsonArray(Objects.requireNonNull(response.body()).string(), SigninRecord.class);
                     records.postValue(result.getData());
-                } catch (IOException | NullPointerException ignored) {                }
+                } catch (IOException | NullPointerException ignored) {}
             }
         });
     }

@@ -43,6 +43,7 @@ public class StatusFragment extends Fragment {
             if (userType != null) {
                 updateSigninStatus(userType);
             }
+            mainViewModel.startPullingMessages();
         });
         signinRecordAdapter = new SigninRecordAdapter();
         viewBinding.listHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -50,7 +51,7 @@ public class StatusFragment extends Fragment {
         return viewBinding.getRoot();
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -58,6 +59,13 @@ public class StatusFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(StatusViewModel.class);
         mainViewModel.getUserType().observe(getViewLifecycleOwner(), userType -> {
             if (userType == null) {
+                return;
+            }
+            updateSigninStatus(userType);
+        });
+        mainViewModel.getMessage().observe(getViewLifecycleOwner(), message -> {
+            Integer userType = mainViewModel.getUserType().getValue();
+            if (message == null || userType == null) {
                 return;
             }
             updateSigninStatus(userType);
