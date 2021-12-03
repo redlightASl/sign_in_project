@@ -37,6 +37,8 @@ public class SigninService {
     private CourseSelectionDAO courseSelectionDAO;
     @Autowired
     private SigninRecordDAO signinRecordDAO;
+    @Autowired
+    public LongPollingService messageService;
     private LessonTimeQuerier querier = LessonTimeQuerier.instance();
 
     public SigninStatus signin(String fingerprint, String location, long timestamp) {
@@ -100,6 +102,11 @@ public class SigninService {
         }
         signinRecordDAO.save(record);
         
+        // 向客户端推送签到信息
+        messageService.postMessage(student.getNumber(), 1);
+        if (course.getTeacher() != null) {
+            messageService.postMessage(course.getTeacher().getNumber(), 2);
+        }
         return record.getStatus();
     }
 }

@@ -28,40 +28,40 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Tag(name = "course", description = "课程查询接口")
 public class CourseController {
     @Autowired
-    public CourseService service;
+    public CourseService courseService;
     
     @GetMapping("/getWeek")
     @Operation(summary = "获取当前周数")
     @ApiResponse(description = "当前是第几周", content = @Content(schema = @Schema(implementation = Integer.class)))
     public Object getWeek(HttpSession httpSession) {
-        return service.getWeek(httpSession);
+        return courseService.getWeek(httpSession);
     }
     
     @GetMapping("/getTotalWeek")
     @Operation(summary = "获取本学期总共周数")
     @ApiResponse(description = "本学期共几周", content = @Content(schema = @Schema(implementation = Integer.class)))
     public Object getTotalWeek(HttpSession httpSession) {
-        return service.getTotalWeek(httpSession);
+        return courseService.getTotalWeek(httpSession);
     }
     
     @GetMapping("/getPeriod")
     @Operation(summary = "获取当前课节")
     @ApiResponse(description = "当前是第几节课", content = @Content(schema = @Schema(implementation = Integer.class)))
     public Object getPeriod(HttpSession httpSession) {
-        return service.getPeriod(httpSession);
+        return courseService.getPeriod(httpSession);
     }
     
     @GetMapping("/getTotalPeriod")
     @Operation(summary = "获取一天总共课节数")
     @ApiResponse(description = "一天有几节课", content = @Content(schema = @Schema(implementation = Integer.class)))
     public Object getTotalPeriod(HttpSession httpSession) {
-        return service.getTotalPeriod(httpSession);
+        return courseService.getTotalPeriod(httpSession);
     }
     
     @GetMapping("/getAllLessonTimes")
     @Operation(summary = "获取所有课程的节数以及上下课时间")
     @ApiResponse(description = "存储了所有课程的节数以及上下课时间的数组", content = @Content(array = @ArraySchema(schema = @Schema(implementation = LessonTimeVO.class))))
     public Object getAllLessonTimes(HttpSession httpSession) {
-        return service.getAllLessonTimes(httpSession);
+        return courseService.getAllLessonTimes(httpSession);
     }
 }

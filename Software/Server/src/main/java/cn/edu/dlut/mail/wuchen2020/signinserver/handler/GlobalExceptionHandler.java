@@ -11,6 +11,9 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import cn.edu.dlut.mail.wuchen2020.signinserver.exception.BusinessException;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
@@ -49,5 +52,10 @@ public class GlobalExceptionHandler {
             argumentMap.put(fieldName, message);
         }
         return ResultVO.fail(2, "请求参数错误", argumentMap);
+    }
+    
+    @ExceptionHandler(AsyncRequestTimeoutException.class)
+    public ResponseEntity<ResultVO> handleAsyncRequestTimeoutException(AsyncRequestTimeoutException e) {
+        return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(ResultVO.fail(304, "没有新消息"));
     }
 }

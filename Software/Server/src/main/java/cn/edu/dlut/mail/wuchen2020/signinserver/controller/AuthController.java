@@ -31,7 +31,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "auth", description = "用户登录接口")
 public class AuthController {
     @Autowired
-    public AuthService service;
+    public AuthService authService;
 
     @PostMapping("/login")
     @Operation(summary = "登录")
@@ -41,7 +41,7 @@ public class AuthController {
         if (user == null) {
             String username = loginVO.getUsername();
             String password = loginVO.getPassword();
-            return service.login(httpSession, username, password);
+            return authService.login(httpSession, username, password);
         }
         return ResultVO.fail(1002, "您已登录");
     }
@@ -50,20 +50,20 @@ public class AuthController {
     @Operation(summary = "注销")
     @ApiResponse(description = "是否注销成功")
     public boolean logout(HttpSession httpSession) {
-        return service.logout(httpSession);
+        return authService.logout(httpSession);
     }
     
     @GetMapping("/usertype")
     @Operation(summary = "查询用户种类")
     @ApiResponse(description = "用户种类(0: 学生, 1: 教师, 2: 管理员)")
     public int getUserType(HttpSession httpSession) {
-        return service.getUserType(httpSession);
+        return authService.getUserType(httpSession);
     }
     
     @PostMapping("/changePassword")
     @Operation(summary = "修改密码")
     @ApiResponse(description = "是否成功修改密码")
     public boolean changePassword(HttpSession httpSession, @RequestBody String oldPassword, @RequestBody String newPassword) {
-        return service.changePassword(httpSession, oldPassword, newPassword);
+        return authService.changePassword(httpSession, oldPassword, newPassword);
     }
 }

@@ -110,7 +110,7 @@ public abstract class LessonTimeQuerier {
      * @author Wu Chen
      */
     public static class DemoQuerier extends LessonTimeQuerier {
-        private static final LocalDate TERM_START = LocalDate.of(2021, 3, 1); // LocalDate.of(0, 9, 1), LocalDate.of(0, 3, 1), LocalDate.of(0, 6, 28)
+        private static final LocalDate TERM_START = LocalDate.of(2021, 9, 1); // LocalDate.of(0, 9, 1), LocalDate.of(0, 3, 1), LocalDate.of(0, 6, 28)
         private static final List<Pair<LocalTime, LocalTime>> LESSONS = new ArrayList<>();
         static {
             LESSONS.add(Pair.of(LocalTime.of(8, 0), LocalTime.of(8, 45)));

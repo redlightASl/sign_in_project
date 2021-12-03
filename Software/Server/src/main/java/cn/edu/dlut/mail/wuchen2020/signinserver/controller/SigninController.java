@@ -26,13 +26,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "signin", description = "终端签到接口")
 public class SigninController {
     @Autowired
-    public SigninService service;
+    public SigninService signinService;
 
     @PostMapping("/signin")
     @Operation(summary = "终端签到(未加密)")
     @ApiResponse(description = "签到结果")
     public int signin(@Validated @RequestBody SigninVO value) {
-        return service.signin(value.getFingerprint(), value.getLocation(), value.getTimestamp()).ordinal();
+        return signinService.signin(value.getFingerprint(), value.getLocation(), value.getTimestamp()).ordinal();
     }
 
     @GetMapping("/time")

@@ -50,7 +50,7 @@ public class TeacherController {
     @Operation(summary = "获取教师课程表")
     @ApiResponse(description = "教师课程表", content = @Content(array = @ArraySchema(schema = @Schema(implementation = LessonVO.class))))
     public Object getTimetable(HttpSession httpSession,
-            @RequestParam(name = "week", required = false, defaultValue = "0") int week) {
+            @RequestParam(name = "week", required = false, defaultValue = "1") int week) {
         UserSession user = (UserSession) httpSession.getAttribute("user");
         if (user.getRole() == UserRole.TEACHER) {
             return teacherService.getTimetable(user.getUsername(), week);
