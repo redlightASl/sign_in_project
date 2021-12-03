@@ -22,14 +22,14 @@ The server backend is based on **SpringBoot**+**Hibernate**+**MySQL** and the fr
 
 `Final Submit` ×
 
-# Project Structure
+## Project Structure
 `Hardware` SPI communication between ESP32 and STM32
 
 `Software` Database, server, client design and face recognition algorithm
 
 `report` Project reports
 
-# Build Requirements
+## Build Requirements
     JDK>=1.8
     Android Studio==4.1.3
     Android SDK==24.4.1
