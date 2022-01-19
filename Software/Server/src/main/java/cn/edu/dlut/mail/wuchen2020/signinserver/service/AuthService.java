@@ -30,11 +30,11 @@ public class AuthService {
     private static final String PASSWORD_SALT = "_W.C=2020_nb@DLUT-EDA/";
 
     @Autowired
-    public StudentDAO studentDAO;
+    private StudentDAO studentDAO;
     @Autowired
-    public TeacherDAO teacherDAO;
+    private TeacherDAO teacherDAO;
     @Autowired
-    public AdminDAO adminDAO;
+    private AdminDAO adminDAO;
 
     public Object login(HttpSession httpSession, String username, String password) {
         String md5Password = encodeMD5(password);

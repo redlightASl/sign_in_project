@@ -38,14 +38,15 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.util.LessonTimeQuerier;
 @Service
 public class TeacherService {
     @Autowired
-    public TeacherDAO teacherDAO;
+    private TeacherDAO teacherDAO;
     @Autowired
-    public CourseDAO courseDAO;
+    private CourseDAO courseDAO;
     @Autowired
     private CourseSelectionDAO courseSelectionDAO;
     @Autowired
     private SigninRecordDAO signinRecordDAO;
-    private LessonTimeQuerier querier = LessonTimeQuerier.instance();
+    @Autowired
+    private LessonTimeQuerier querier;
 
     public TeacherInfoVO getTeacherInfo(String number) {
         Teacher teacher = teacherDAO.findByNumber(number);

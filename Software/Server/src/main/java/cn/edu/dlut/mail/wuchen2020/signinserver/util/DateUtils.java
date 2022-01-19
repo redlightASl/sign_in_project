@@ -11,7 +11,6 @@ import java.util.Date;
  * @author Wu Chen
  */
 public final class DateUtils {
-
     private DateUtils() {}
     
     public static int getDayOfWeek(LocalDate date) {

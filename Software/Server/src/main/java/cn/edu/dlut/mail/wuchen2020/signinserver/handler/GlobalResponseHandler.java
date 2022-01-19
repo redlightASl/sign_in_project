@@ -30,7 +30,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
             return ResultVO.success();
         }
         if (body instanceof ResultVO) {
-            return body;
+            return (ResultVO) body;
         }
         return ResultVO.success(body);
     }

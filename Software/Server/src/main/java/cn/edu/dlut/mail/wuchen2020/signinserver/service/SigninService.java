@@ -38,8 +38,9 @@ public class SigninService {
     @Autowired
     private SigninRecordDAO signinRecordDAO;
     @Autowired
-    public LongPollingService messageService;
-    private LessonTimeQuerier querier = LessonTimeQuerier.instance();
+    private LongPollingService messageService;
+    @Autowired
+    private LessonTimeQuerier querier;
 
     public SigninStatus signin(String fingerprint, String location, long timestamp) {
         // 从student表里查询学生

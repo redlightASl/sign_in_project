@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.ResultVO;
 import io.swagger.v3.oas.annotations.Hidden;
 
@@ -19,8 +20,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 @Hidden
 public class CommonErrorController implements ErrorController {
     @RequestMapping("/error")
-    public ResultVO handleError(HttpServletRequest request, HttpServletResponse response) {
-        response.setCharacterEncoding("UTF-8");
+    public ResultVO handleError(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
         int code = response.getStatus();
         String message;
         switch (code) {
@@ -46,6 +46,7 @@ public class CommonErrorController implements ErrorController {
             message = "未知错误";
             break;
         }
+        response.setCharacterEncoding("UTF-8");
         return ResultVO.fail(code, message);
     }
 }

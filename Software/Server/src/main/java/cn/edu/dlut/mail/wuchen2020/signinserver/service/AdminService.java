@@ -17,7 +17,7 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.model.reso.AdminInfoVO;
 @Service
 public class AdminService {
     @Autowired
-    public AdminDAO adminDAO;
+    private AdminDAO adminDAO;
 
     public AdminInfoVO getAdminInfo(String username) {
         Admin admin = adminDAO.findByUsername(username);

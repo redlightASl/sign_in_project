@@ -21,3 +21,21 @@ springdoc:
   api-docs:
     enabled: true
   packages-to-scan: cn.edu.dlut.mail.wuchen2020.signinserver.controller
+
+signin:
+  enableChunkedTransfer: false
+  # XXXX-09-01, XXXX-03-01, XXXX-06-28
+  termStartTime: "2020-09-01"
+  lessonTimes:
+    - "08:00,08:45"
+    - "08:50,09:35"
+    - "10:05,10:50"
+    - "11:00,11:45"
+    - "13:30,14:15"
+    - "14:20,15:05"
+    - "15:35,16:20"
+    - "16:25,17:10"
+    - "18:00,18:50"
+    - "18:55,19:45"
+    - "19:50,20:40"
+  totalWeekCount: 20

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.util.LessonTimeQuerier;
  */
 @Service
 public class CourseService {
-    private LessonTimeQuerier querier = LessonTimeQuerier.instance();
+    @Autowired
+    private LessonTimeQuerier querier;
 
     public int getWeek(HttpSession httpSession) {
         return querier.getWeek();
