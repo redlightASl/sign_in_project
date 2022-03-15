@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="project_projx.xsd">
+  <SchemaVersion>2.1</SchemaVersion>
+  <Header>### uVision Project, (C) Keil Software</Header>
+  <Targets>
+    <Target>
+      <TargetName>yoloface</TargetName>
+      <ToolsetNumber>0x4</ToolsetNumber>
+      <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
+      <TargetOption>
+        <TargetCommonOption>
+          <Device>STM32H750VBTx</Device>
+          <Vendor>STMicroelectronics</Vendor>
+          <PackID>Keil.STM32H7xx_DFP.2.7.0</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>

@@ -3,3 +3,5 @@ build/
 Makefile
 sdkconfig
 sdkconfig.old
+
+.devcontainer/
