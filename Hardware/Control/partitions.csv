@@ -1,8 +1,4 @@
-# Name,   Type, SubType, Offset,  Size, Flags
-# Note: if you have increased the bootloader size, make sure to update the offsets to avoid overlap
-nvs,        data, nvs,      0x9000,     0x6000,
-phy_init,   data, phy,      0xf000,     0x1000,
-factory,    app,  factory,  0x10000,    1M,
-ota_0,      0,    ota_0,    ,           1M,
-ota_1,      0,    ota_0,    ,           1M,
-storage,    data, spiffs,   ,           4M,
+# Espressif ESP32 Partition Table
+# Name,  Type, SubType, Offset,  Size
+factory, app,  factory, 0x010000, 3840K
+nvs,     data, nvs,     0x3D0000, 16K

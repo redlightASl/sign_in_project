@@ -1,0 +1,16 @@
+.\yoloface\yoloface_data.o: ../X-CUBE-AI/App/yoloface_data.c
+.\yoloface\yoloface_data.o: ../X-CUBE-AI/App/yoloface_data.h
+.\yoloface\yoloface_data.o: ../X-CUBE-AI/App/yoloface_config.h
+.\yoloface\yoloface_data.o: ../Middlewares/ST/AI/Inc/ai_platform.h
+.\yoloface\yoloface_data.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\yoloface\yoloface_data.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
+.\yoloface\yoloface_data.o: D:\keil\ARM\ARMCC\Bin\..\include\inttypes.h
+.\yoloface\yoloface_data.o: D:\keil\ARM\ARMCC\Bin\..\include\stdbool.h
+.\yoloface\yoloface_data.o: ../Middlewares/ST/AI/Inc/ai_platform_interface.h
+.\yoloface\yoloface_data.o: ../Middlewares/ST/AI/Inc/datatypes_network.h
+.\yoloface\yoloface_data.o: ../Middlewares/ST/AI/Inc/ai_datatypes.h
+.\yoloface\yoloface_data.o: D:\keil\ARM\ARMCC\Bin\..\include\string.h
+.\yoloface\yoloface_data.o: ../Middlewares/ST/AI/Inc/ai_datatypes_format.h
+.\yoloface\yoloface_data.o: ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h
+.\yoloface\yoloface_data.o: ../Middlewares/ST/AI/Inc/core_datatypes.h
+.\yoloface\yoloface_data.o: ../Middlewares/ST/AI/Inc/formats_list.h

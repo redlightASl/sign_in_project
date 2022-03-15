@@ -1,37 +1,173 @@
+#include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "freertos/event_groups.h"
+#include "freertos/task.h"
 #include "esp_system.h"
+#include "esp_wifi.h"
+#include "driver/gpio.h"
 #include "esp_event.h"
 #include "esp_log.h"
-#include "sys/param.h"
-#include "driver/gpio.h"
+#include "nvs_flash.h"
+
+#include "lwip/err.h"
+#include "lwip/sockets.h"
+#include "lwip/sys.h"
+#include "lwip/netdb.h"
+#include "lwip/dns.h"
+#include "cJSON.h"
+
+#include "protocol_examples_common.h"
+#include "app_web.h"
+#include "app_spi.h"
 
 #include "app_main.h"
-#include "app_spi.h"
-#include "app_wifi.h"
 
-static const char* TAG=DEVICE;
+static const char* TAG = "esp_IoT";
+
+SemaphoreHandle_t HTTP_GET_TIMESTAMP_FLAG = NULL;
+
+QueueHandle_t server_to_spi_Queue = NULL;
+QueueHandle_t spi_to_server_Queue = NULL;
+QueueHandle_t trans_timestamp_Queue = NULL;
+QueueHandle_t trans_fingerprint_Queue = NULL;
+
+static void SOC_init(void);
+static void NVS_init(void);
+static void GPIO_init(void);
+void TaskRun(void* param);
 
 void app_main(void)
 {
-    State_enum* ESP32_STATE; //state-pointer of ESP32
-    esp_err_t ret;//debug logs
-    size_t total=0;//SPIFFS state
-    size_t used=0;//SPIFFS state
+    SOC_init();
+    NVS_init();
+    GPIO_init();
+    SPI_init();
 
-    /* init system event loop and Queue*/
+    ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
-    ESP_LOGI(TAG, "event_loop init success");
+    ESP_ERROR_CHECK(example_connect());
 
-    xQueueHandle ESP32_State_Queue = xQueueCreate(10, sizeof(State_enum)); //create a queue to handle ESP32 State
-    if(ESP32_State_Queue == 0)
-        ESP_LOGE(TAG, "Failed to create Queue of ESP32_STATE");
-    xQueueHandle STM32_State_Queue = xQueueCreate(10, sizeof(Message_enum)); //create a queue to handle STM32 State
-    if(STM32_State_Queue == 0)
-        ESP_LOGE(TAG, "Failed to create Queue of STM32_STATE");
+    HTTP_GET_TIMESTAMP_FLAG = xSemaphoreCreateBinary();
+    if (HTTP_GET_TIMESTAMP_FLAG == NULL)
+    {
+        ESP_LOGE(TAG, "Cannot create Semaphore HTTP_GET_TIMESTAMP_FLAG");
+    }
+    xSemaphoreGive(HTTP_GET_TIMESTAMP_FLAG);
 
-    /* init NVS */
+    server_to_spi_Queue = xQueueCreate(10, TIMESTAMP_SIZE * sizeof(char));
+    if (server_to_spi_Queue == NULL)
+    {
+        ESP_LOGE(TAG, "Cannot create Queue server_to_spi_Queue");
+    }
+    spi_to_server_Queue = xQueueCreate(10, TIMESTAMP_SIZE * sizeof(char));
+    if (spi_to_server_Queue == NULL)
+    {
+        ESP_LOGE(TAG, "Cannot create Queue spi_to_server_Queue");
+    }
+    trans_timestamp_Queue = xQueueCreate(10, TIMESTAMP_SIZE * sizeof(char));
+    if (trans_timestamp_Queue == NULL)
+    {
+        ESP_LOGE(TAG, "Cannot create Queue trans_timestamp_Queue");
+    }
+    trans_fingerprint_Queue = xQueueCreate(10, TIMESTAMP_SIZE * sizeof(char));
+    if (trans_fingerprint_Queue == NULL)
+    {
+        ESP_LOGE(TAG, "Cannot create Queue trans_fingerprint_Queue");
+    }
+
+    xTaskCreate(&SPI_trans_start, "SPI_trans_start", 4096, NULL, 5, NULL);
+    xTaskCreate(&TaskRun, "TaskRun", 8192, NULL, 5, NULL);
+    xTaskCreate(&Get_timestamp_task, "http_get_task", 8192, NULL, 5, NULL);
+    xTaskCreate(&Post_data_task, "Post_data_task", 8192, NULL, 5, NULL);
+}
+
+/**
+ * @brief Run-time check task
+ * @param  param            NULL
+ */
+void TaskRun(void* param)
+{
+    char message_source[TIMESTAMP_SIZE] = { 0 };
+    while (1)
+    {
+        xQueueReceive(spi_to_server_Queue, &message_source, 0); //Receive data from stm32
+        char message_type = message_source[0];
+        xQueueSend(trans_fingerprint_Queue, &message_source, 0); //Send data to server
+        memset(message_source, 0, TIMESTAMP_SIZE * sizeof(char));
+        // switch (message_type)
+        // {
+        // case: ONLINE
+        //     gpio_set_level(GPIO_OUTPUT_PIN, 0);
+        //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+        //     gpio_set_level(GPIO_OUTPUT_PIN, 1);
+        //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+        //     break;
+        // case: STOP //error
+        //     message_type = ERROR;
+        //     break;
+        // case: SLEEP //error
+        //     message_type = ERROR;
+        //     break;
+        // case: OTA //error
+        //     message_type = ERROR;
+        //     break;
+        // case: DATA
+        //     message_type = ONLINE;
+        //     break;
+        // case: ERROR //error
+        //     gpio_set_level(GPIO_OUTPUT_PIN, 0);
+        //     ESP_LOGE(TAG, "Error happened\r\n");
+        //     fflush(stdout);
+        //     esp_restart();
+        //     break;
+        // default:
+        //     message_type = ERROR;
+        //     break;
+        // }
+    }
+    printf("Error in running, Restarting now.\n");
+    fflush(stdout);
+    esp_restart();
+}
+
+/**
+ * @brief init GPIO peripherals without interrupt
+ */
+static void GPIO_init(void)
+{
+    gpio_config_t LED_io_conf;
+    LED_io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
+    LED_io_conf.mode = GPIO_MODE_OUTPUT;
+    LED_io_conf.pin_bit_mask = GPIO_OUTPUT_PIN_SEL;
+    LED_io_conf.pull_down_en = 0;
+    LED_io_conf.pull_up_en = 1;
+    gpio_config(&LED_io_conf);
+    ESP_LOGI(TAG, "%s init GPIO finished", __func__);
+}
+
+/**
+ * @brief Check System-on-Chip
+ */
+static void SOC_init(void)
+{
+    esp_chip_info_t chip_info;
+    esp_chip_info(&chip_info);
+    printf("This is ESP32 chip with %d CPU cores, WiFi%s%s, ",
+        chip_info.cores,
+        (chip_info.features & CHIP_FEATURE_BT) ? "/BT" : "",
+        (chip_info.features & CHIP_FEATURE_BLE) ? "/BLE" : "");
+    printf("silicon revision %d, ", chip_info.revision);
+    printf("%dMB %s flash\n", spi_flash_get_chip_size() / (1024 * 1024),
+        (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
+    printf("cJSON Version:%s\n", cJSON_Version());
+}
+
+/**
+ * @brief Init NVS Flash
+ */
+static void NVS_init(void)
+{
+    esp_err_t ret;
     ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
     {
@@ -40,68 +176,5 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
     ESP_LOGI(TAG, "%s init NVS finished", __func__);
-
-    /* init SPIFFS */
-    esp_vfs_spiffs_conf_t spiffs_conf = {
-        .base_path = "/root",
-        .partition_label = NULL,
-        .max_files = 5,
-        .format_if_mount_failed = true
-    };
-    ESP_ERROR_CHECK(esp_vfs_spiffs_register(&spiffs_conf));
-    ret = esp_spiffs_info(NULL, &total, &used);
-    if (ret != ESP_OK)
-        ESP_LOGE(TAG, "Failed to get SPIFFS partition information (%s)", esp_err_to_name(ret));
-    else
-        ESP_LOGI(TAG, "Partition size: total: %d, used: %d", total, used);
-
-    /* init GPIO peripherals without interrupt */
-    gpio_config_t LED_io_conf;
-    LED_io_conf.intr_type = GPIO_PIN_INTR_DISABLE; //disable interrupt
-    LED_io_conf.mode = GPIO_MODE_OUTPUT; //output mode
-    LED_io_conf.pin_bit_mask = GPIO_OUTPUT_PIN_SEL; //bit mask of the pins
-    LED_io_conf.pull_down_en = 0;
-    LED_io_conf.pull_up_en = 1; //enable pull-up mode
-    gpio_config(&LED_io_conf);
-    ESP_LOGI(TAG, "%s init GPIO finished", __func__);
-
-    /* init camera periperals */
-    camera_start();
-
-    /* init SPI peripherals */
-    //ESP_ERROR_CHECK(SPI_init());
-
-    /* init OLED peripherals */
-    /* NOT DECIDED */
-
-    /* init WiFi peripherals */
-    //ESP_ERROR_CHECK(ESP_wifi_init());
-    //ESP_LOGI(TAG, "%s init all the peripherals finished", __func__);
-    /* Create Tasks */
-    xTaskCreate(TaskSpiTrans,"SPI",TASK_STACK_SIZE,"SPI",TASK_PRIORITY,NULL);//SPI communication with STM32
-    xTaskCreate(TaskUpload,"upload",TASK_STACK_SIZE,"upload",TASK_PRIORITY,NULL);//upload results to Server
-    xTaskCreate(TaskListen,"listen",TASK_STACK_SIZE,"listen",TASK_PRIORITY,NULL);//listen to Server-Commands
-    ESP_LOGI(TAG, "%s Tasks were created", __func__);
-    ESP_LOGI("System Running!");
-
-    while (1)
-    {
-        xQueueReceive(ESP32_State_Queue, &ESP32_STATE, (TickType_t)0)
-        if(*STATE == ERROR) //error
-        {
-            gpio_set_level(GPIO_OUTPUT_IO_9, 1); //lightup LED
-        }
-        else if(*STATE == IDLE) //idle
-        {
-            gpio_set_level(GPIO_OUTPUT_IO_9, 0); //extinguish LED
-        }
-        else if(*STATE == BUSY) //busy
-        {
-            vTaskDelay(10000/portTICK_PERIOD_MS);
-            continue;
-        }
-        else
-            vTaskDelay(1000/portTICK_PERIOD_MS);
-    }
-    vTaskDelete();
 }
+

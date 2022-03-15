@@ -1,0 +1,10 @@
+.\yoloface\finsh_port.o: ../Middlewares/Third_Party/RealThread_RTOS/components/finsh/finsh_port.c
+.\yoloface\finsh_port.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rthw.h
+.\yoloface\finsh_port.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtthread.h
+.\yoloface\finsh_port.o: ../RT-Thread/rtconfig.h
+.\yoloface\finsh_port.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_config.h
+.\yoloface\finsh_port.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdebug.h
+.\yoloface\finsh_port.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdef.h
+.\yoloface\finsh_port.o: D:\keil\ARM\ARMCC\Bin\..\include\stdarg.h
+.\yoloface\finsh_port.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtservice.h
+.\yoloface\finsh_port.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_api.h
