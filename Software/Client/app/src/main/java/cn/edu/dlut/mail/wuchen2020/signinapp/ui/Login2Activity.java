@@ -59,8 +59,8 @@ public class Login2Activity extends AppCompatActivity {
         });
         viewBinding.buttonLogin.setOnClickListener(v -> {
             progressDialog = ProgressDialog.show(this, "", "正在登录中...", true);
-            viewModel.username = viewBinding.textUsername.getText().toString().trim();
-            viewModel.password = viewBinding.textPassword.getText().toString().trim();
+            viewModel.username = viewBinding.textUsername.getEditText().getText().toString().trim();
+            viewModel.password = viewBinding.textPassword.getEditText().getText().toString().trim();
             viewModel.login();
         });
     }

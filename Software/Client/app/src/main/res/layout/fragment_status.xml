@@ -38,7 +38,7 @@
                     android:contentDescription="签到状态图标"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_check_box_blank_24"
-                    app:tint="@color/white" />
+                    app:tint="@android:color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                         android:id="@+id/text_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"
                         tools:text="当前无课" />
 
@@ -59,7 +59,7 @@
                         android:id="@+id/text_lesson"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@android:color/white"
                         android:visibility="visible"
                         tools:text="这是一节大水课 C101" />
 

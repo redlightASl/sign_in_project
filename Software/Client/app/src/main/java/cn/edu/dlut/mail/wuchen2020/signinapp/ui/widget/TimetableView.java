@@ -40,6 +40,8 @@ public class TimetableView extends LinearLayout {
     private int periodTextSize;
     private int courseTextSize;
     @ColorInt
+    private int titleColor;
+    @ColorInt
     private int titleBackgroundColor;
 
     // 每节课的时间
@@ -67,7 +69,7 @@ public class TimetableView extends LinearLayout {
     public TimetableView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         daysOfWeek = context.getResources().getStringArray(R.array.week);
-        courseColors = context.getResources().getIntArray(R.array.course_colors_dark);
+        courseColors = context.getResources().getIntArray(R.array.course_colors);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TimetableView);
         weekHeight = a.getDimensionPixelSize(R.styleable.TimetableView_weekHeight, dp2px(30));
         periodWidth = a.getDimensionPixelSize(R.styleable.TimetableView_periodWidth, dp2px(30));
@@ -77,6 +79,7 @@ public class TimetableView extends LinearLayout {
         weekTextSize = a.getDimensionPixelSize(R.styleable.TimetableView_weekTextSize, 12);
         periodTextSize = a.getDimensionPixelSize(R.styleable.TimetableView_periodTextSize, 8);
         courseTextSize = a.getDimensionPixelSize(R.styleable.TimetableView_courseTextSize, 12);
+        titleColor = a.getColor(R.styleable.TimetableView_titleColor, Color.BLACK);
         titleBackgroundColor = a.getColor(R.styleable.TimetableView_titleBackgroundColor, Color.WHITE);
         a.recycle();
         setOrientation(VERTICAL);
@@ -92,7 +95,7 @@ public class TimetableView extends LinearLayout {
         for (String day : daysOfWeek) {
             View divider = createVerticalDivider();
             layoutTitle.addView(divider);
-            TextView textDay = createTextView(0, ViewGroup.LayoutParams.MATCH_PARENT, 1, day, weekTextSize, Color.BLACK);
+            TextView textDay = createTextView(0, ViewGroup.LayoutParams.MATCH_PARENT, 1, day, weekTextSize, titleColor);
             layoutTitle.addView(textDay);
         }
         addView(layoutTitle);
@@ -143,7 +146,7 @@ public class TimetableView extends LinearLayout {
         layoutTitle.setBackgroundColor(titleBackgroundColor);
         for (LessonTime time : timeList) {
             String text = String.format("%s\n%s\n%s", time.getPeriod(), time.getStartTime().substring(0, 5), time.getEndTime().substring(0, 5));
-            TextView textPeriod = createTextView(ViewGroup.LayoutParams.MATCH_PARENT, cellHeight, 1, text, periodTextSize, Color.BLACK);
+            TextView textPeriod = createTextView(ViewGroup.LayoutParams.MATCH_PARENT, cellHeight, 1, text, periodTextSize, titleColor);
             layoutTitle.addView(textPeriod);
             View divider = createHorizontalDivider();
             layoutTitle.addView(divider);

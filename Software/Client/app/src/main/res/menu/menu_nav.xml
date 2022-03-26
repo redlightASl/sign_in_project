@@ -10,7 +10,7 @@
         android:title="@string/nav_timetable" />
     <item
         android:id="@+id/nav_user"
-        android:icon="@drawable/ic_person_24"
+        android:icon="@drawable/ic_account_24"
         android:title="@string/nav_user" />
 
 </menu>

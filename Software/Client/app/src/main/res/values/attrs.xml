@@ -17,6 +17,8 @@
         <attr name="periodTextSize" format="dimension" />
         <!-- 课程信息字体 -->
         <attr name="courseTextSize" format="dimension" />
+        <!-- 标题文字颜色 -->
+        <attr name="titleColor" format="color" />
         <!-- 标题背景颜色 -->
         <attr name="titleBackgroundColor" format="color" />
 

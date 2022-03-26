@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="user_background">#000000</color>
+
+    <array name="course_colors">
+        <item name="one">#5ABF6C</item>
+        <item name="two">#F79060</item>
+        <item name="three">#63C0BD</item>
+        <item name="four">#ED837F</item>
+        <item name="five">#F5B94E</item>
+        <item name="six">#CA9483</item>
+        <item name="seven">#31A6D3</item>
+        <item name="eight">#8BC73D</item>
+        <item name="nine">#87A6C6</item>
+        <item name="ten">#87A6C6</item>
+        <item name="eleven">#6DB69C</item>
+        <item name="twelve">#DF7999</item>
+        <item name="thirteen">#D6A858</item>
+        <item name="fourteen">#997FC3</item>
+        <item name="fifteen">#DDB97B</item>
+        <item name="sixteen">#ADADAD</item>
+    </array>
+
+</resources>

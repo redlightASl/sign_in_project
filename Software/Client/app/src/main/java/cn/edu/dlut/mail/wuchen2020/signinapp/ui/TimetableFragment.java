@@ -67,7 +67,7 @@ public class TimetableFragment extends Fragment {
             }
         });
         viewBinding.timetable.setOnCourseClickListener(course -> {
-            AndroidUtil.toast(getContext(), "您点击了 " + course.getName()); // TODO test
+            AndroidUtil.toast(getContext(), "您点击了 " + course.getName()); // TODO 打开课程详情
         });
         return viewBinding.getRoot();
     }

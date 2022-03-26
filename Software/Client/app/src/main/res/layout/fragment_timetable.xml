@@ -25,21 +25,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="上一周"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="?android:attr/textColorPrimary"
                 style="@style/Widget.AppCompat.Button.Borderless" />
 
             <Spinner
                 android:id="@+id/spinner_week"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:contentDescription="周数" />
 
             <Button
                 android:id="@+id/button_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="下一周"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="?android:attr/textColorPrimary"
                 style="@style/Widget.AppCompat.Button.Borderless" />
 
         </LinearLayout>
@@ -52,7 +53,8 @@
                 android:id="@+id/timetable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:titleBackgroundColor="#FDFDFD" />
+                app:titleColor="?android:attr/textColorPrimary"
+                app:titleBackgroundColor="?android:attr/colorBackground" />
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
