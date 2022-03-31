@@ -22,7 +22,7 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.config.SigninProperties;
  * 
  * @author Tango小黄
  */
-@WebFilter(filterName = "ContentLengthFilter", urlPatterns = { "/api/*", "/error" }, dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.ERROR })
+@WebFilter(filterName = "ContentLengthFilter", urlPatterns = { "/api/*", "/error" }, dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.ERROR }, asyncSupported = true)
 public class ContentLengthFilter extends OncePerRequestFilter {
     @Autowired
     private SigninProperties signinProperties;
