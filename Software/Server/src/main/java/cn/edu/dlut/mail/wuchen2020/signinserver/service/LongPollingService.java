@@ -24,17 +24,23 @@ public class LongPollingService {
         deferredResult.onCompletion(new Runnable() {
             @Override
             public void run() {
-                requestMap.remove(id, deferredResult);
+                synchronized (requestMap) {
+                    requestMap.remove(id, deferredResult);
+                }
             }
         });
-        requestMap.put(id, deferredResult);
+        synchronized (requestMap) {
+            requestMap.put(id, deferredResult);
+        }
         return deferredResult;
     }
 
     public void postMessage(String id, Object message) {
-        if (requestMap.containsKey(id)) {
-            for (DeferredResult<Object> deferredResult : requestMap.get(id)) {
-                deferredResult.setResult(message);
+        synchronized (requestMap) {
+            if (requestMap.containsKey(id)) {
+                for (DeferredResult<Object> deferredResult : requestMap.get(id)) {
+                    deferredResult.setResult(message);
+                }
             }
         }
     }

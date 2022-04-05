@@ -44,4 +44,13 @@ public class ContentLengthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, cacheResponseWrapper);
         cacheResponseWrapper.copyBodyToResponse();
     }
+    
+    // FIXME 异步请求也会走此过滤器, 导致Content-Length为0, 从而导致客户端无法收到响应
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        if (request.getServletPath().equals("/api/pullMessages")) {
+            return true;
+        }
+        return false;
+    }
 }

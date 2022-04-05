@@ -16,7 +16,7 @@ import cn.edu.dlut.mail.wuchen2020.signinserver.util.LessonTimeQuerier;
 /**
  * 查询学期, 课节数和上课时间等的接口
  * </br>
- * 另见 {@link cn.edu.dlut.mail.wuchen2020.signinserver.controller.AuthController}
+ * 另见 {@link cn.edu.dlut.mail.wuchen2020.signinserver.controller.CourseController}
  * 
  * @author Wu Chen
  */
