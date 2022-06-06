@@ -1,6 +1,20 @@
 # sign_in_project
 A single project in "National College Student Innovation and Entrepreneurship Training Program"
 
+## Screenshots
+<details>
+<summary>Click to view</summary>
+
+![Server1](./images/server-1.png)
+![Server2](./images/server-2.png)
+![Client1](./images/android-1.jpg)
+![Client2](./images/android-2.jpg)
+![Embedded1](./images/embedded-1.jpg)
+![Embedded2](./images/embedded-2.jpg)
+![SigninFSM](./images/fsm.png)
+
+</details>
+
 ## General
 This is an experimental software and hardware co-design solution for students signing-in.
 Aiming at college, we tried to achieve convenient check-in and check-out service through face recognition.
